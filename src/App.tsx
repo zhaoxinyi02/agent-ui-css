@@ -32,129 +32,109 @@ const diff = [
   { type: "context" as const, content: "}", oldNumber: 9, newNumber: 9 },
 ];
 
-type PreviewCardProps = {
+type GalleryCardProps = {
   title: string;
   category: string;
   children: React.ReactNode;
-  align?: "center" | "top";
-  className?: string;
+  stageClassName?: string;
 };
 
-function PreviewCard({ title, category, children, align = "center", className = "" }: PreviewCardProps) {
+function GalleryCard({ title, category, children, stageClassName = "" }: GalleryCardProps) {
   return (
-    <article className={`preview-card ${className}`}>
-      <div className={`preview-card__stage preview-card__stage--${align}`}>{children}</div>
-      <footer className="preview-card__meta">
-        <div><strong>{title}</strong><span>{category}</span></div>
-        <span className="preview-card__format" aria-hidden="true">TSX</span>
+    <article className="gallery-card">
+      <div className={`gallery-card__stage ${stageClassName}`}>{children}</div>
+      <footer className="gallery-card__meta">
+        <strong>{title}</strong>
+        <span>{category}</span>
       </footer>
     </article>
   );
 }
 
-function CollectionSection({ title, eyebrow, children }: { title: string; eyebrow: string; children: React.ReactNode }) {
+function GallerySection({ id, title, children }: { id: string; title: string; children: React.ReactNode }) {
   const count = Array.isArray(children) ? children.length : 1;
   return (
-    <section className="collection-section">
-      <header className="collection-section__header">
-        <div><span>{eyebrow}</span><h2>{title}</h2></div>
-        <span>{String(count).padStart(2, "0")} components</span>
+    <section className="gallery-section" id={id}>
+      <header className="gallery-section__heading">
+        <h2>{title}</h2>
+        <span>{count} components</span>
       </header>
-      <div className="collection-grid">{children}</div>
+      <div className="gallery-grid">{children}</div>
     </section>
+  );
+}
+
+function OrbSheet() {
+  const variants = ["wave", "pulse", "orbit", "typing", "stack"] as const;
+  return (
+    <div className="orb-sheet" aria-label="Activity orb variants">
+      {variants.flatMap((variant, row) => [
+        <Orbs key={`${variant}-1`} variant={variant} tone={row % 3 === 0 ? "violet" : row % 3 === 1 ? "blue" : "mint"} />,
+        <Orbs key={`${variant}-2`} variant={variant} tone={row % 3 === 0 ? "blue" : row % 3 === 1 ? "mint" : "violet"} />,
+        <Orbs key={`${variant}-3`} variant={variant} tone={row % 3 === 0 ? "mint" : row % 3 === 1 ? "violet" : "blue"} />,
+      ])}
+    </div>
   );
 }
 
 export function App() {
   return (
-    <main id="top">
+    <main>
       <header className="site-header">
-        <a className="brand" href="#top" aria-label="Agent UI CSS home">
-          <span className="brand__mark">AU</span>
+        <a className="wordmark" href="#thinking" aria-label="Agent UI CSS components">
           <strong>Agent UI</strong>
-          <span className="brand__version">CSS · 0.1</span>
+          <span>CSS</span>
+          <small>v0.1</small>
         </a>
         <nav aria-label="Primary navigation">
-          <a href="#components">Components</a>
           <a href="https://github.com/zhaoxinyi02/agent-ui-css">Documentation</a>
-          <a className="header-action" href="https://github.com/zhaoxinyi02/agent-ui-css">GitHub ↗</a>
+          <a className="nav-primary" href="https://github.com/zhaoxinyi02/agent-ui-css">View on GitHub</a>
         </nav>
       </header>
 
-      <section className="catalog-hero">
-        <div>
-          <span className="catalog-hero__eyebrow"><i /> Open-source interface kit</span>
-          <h1>Components for products<br />that <em>think out loud.</em></h1>
-        </div>
-        <div className="catalog-hero__aside">
-          <p>A quiet, adaptable React component library for AI agents—built with TypeScript and plain CSS.</p>
-          <dl><div><dt>Components</dt><dd>14</dd></div><div><dt>Dependencies</dt><dd>0 UI</dd></div><div><dt>License</dt><dd>MIT</dd></div></dl>
-        </div>
-      </section>
+      <div className="gallery-shell">
+        <GallerySection id="thinking" title="Thinking & Reasoning">
+          <GalleryCard title="Thinking State" category="Thinking & Reasoning"><ThinkingState /></GalleryCard>
+          <GalleryCard title="Thinking + Reasoning" category="Thinking & Reasoning">
+            <ThinkingReasoning seconds={8}><p>Reading the request and the current context, then checking the available evidence before returning a concise recommendation.</p></ThinkingReasoning>
+          </GalleryCard>
+          <GalleryCard title="Activity Orbs" category="Thinking & Reasoning"><OrbSheet /></GalleryCard>
+        </GallerySection>
 
-      <div className="catalog-toolbar" id="components">
-        <div className="catalog-tabs" role="navigation" aria-label="Component categories">
-          <a className="is-active" href="#reasoning">All components</a>
-          <a href="#reasoning">Reasoning</a>
-          <a href="#tools">Tools</a>
-          <a href="#outputs">Outputs</a>
-          <a href="#input">Input</a>
-        </div>
-        <span>React · TypeScript · CSS</span>
+        <GallerySection id="tools" title="Tool & Action States">
+          <GalleryCard title="Web Search" category="Tool & Action States" stageClassName="gallery-card__stage--dense">
+            <WebSearch query="Accessible AI interface patterns" sources={[{ title: "Human-centered AI", domain: "example.org", done: true }, { title: "ARIA live regions", domain: "w3.org", done: true }, { title: "Streaming interfaces", domain: "example.com" }]} />
+          </GalleryCard>
+          <GalleryCard title="File Diff" category="Tool & Action States" stageClassName="gallery-card__stage--dense"><FileDiff filename="greeting.ts" lines={diff} /></GalleryCard>
+          <GalleryCard title="Image Generation" category="Tool & Action States" stageClassName="gallery-card__stage--dense"><ImageGeneration prompt="A quiet reading room at dusk" progress={72} /></GalleryCard>
+        </GallerySection>
+
+        <GallerySection id="text" title="Text Outputs">
+          <GalleryCard title="Text Response" category="Text Outputs" stageClassName="gallery-card__stage--prose">
+            <TextResponse><h3>A clear response structure</h3><p>Lead with the answer, keep supporting detail readable, and use <code>inline code</code> only where it adds precision.</p></TextResponse>
+          </GalleryCard>
+          <GalleryCard title="Streaming Text" category="Text Outputs"><StreamingText text="The response arrives progressively, with a calm caret marking the live edge." speed={24} /></GalleryCard>
+          <GalleryCard title="Inline Citations" category="Text Outputs" stageClassName="gallery-card__stage--prose">
+            <TextResponse><p>A useful answer makes the conclusion easy to find<CitationMark id={1} /> while preserving evidence<CitationMark id={2} />.</p><InlineCitations items={[{ id: 1, title: "Human-centered AI guidance", url: "https://www.nist.gov/itl/ai-risk-management-framework", domain: "nist.gov" }, { id: 2, title: "Accessible Rich Internet Applications", url: "https://www.w3.org/WAI/standards-guidelines/aria/", domain: "w3.org" }]} /></TextResponse>
+          </GalleryCard>
+          <GalleryCard title="Code Block" category="Text Outputs" stageClassName="gallery-card__stage--dense"><CodeBlock filename="agent.ts" language="typescript" code={'type State = "idle" | "thinking" | "done";\n\nexport const isWorking = (state: State) =>\n  state === "thinking";'} /></GalleryCard>
+        </GallerySection>
+
+        <GallerySection id="structured" title="Structured Outputs">
+          <GalleryCard title="To-do List" category="Structured Outputs"><TaskList title="Launch checklist" items={[{ id: "1", label: "Build interface", status: "done" }, { id: "2", label: "Verify accessibility", status: "active" }, { id: "3", label: "Publish release", status: "pending" }]} /></GalleryCard>
+          <GalleryCard title="Data Table" category="Structured Outputs" stageClassName="gallery-card__stage--dense"><DataTable columns={columns} rows={[{ model: "Swift", latency: "320 ms", context: "64k" }, { model: "Balanced", latency: "740 ms", context: "128k" }, { model: "Deep", latency: "1.8 s", context: "256k" }]} caption="Model routing overview" /></GalleryCard>
+          <GalleryCard title="Comparison Table" category="Structured Outputs" stageClassName="gallery-card__stage--dense"><ComparisonTable plans={["Starter", "Pro", "Team"]} features={[{ feature: "Agent sessions", values: ["100", "∞", "∞"] }, { feature: "Shared memory", values: [false, true, true] }, { feature: "Team controls", values: [false, false, true] }]} /></GalleryCard>
+        </GallerySection>
+
+        <GallerySection id="interactive" title="Rich & Interactive">
+          <GalleryCard title="AI Agent Input" category="Rich & Interactive"><AgentInput models={["Swift", "Balanced", "Deep"]} /></GalleryCard>
+        </GallerySection>
       </div>
 
-      <div className="catalog">
-        <div id="reasoning">
-          <CollectionSection eyebrow="01 / States" title="Thinking & reasoning">
-            <PreviewCard title="Thinking State" category="Processing state"><ThinkingState /></PreviewCard>
-            <PreviewCard title="Thinking + Reasoning" category="Expandable disclosure">
-              <ThinkingReasoning seconds={8}><p>Compare the request with the available evidence, identify the strongest signal, and return a concise recommendation.</p></ThinkingReasoning>
-            </PreviewCard>
-            <PreviewCard title="Activity Orbs" category="Agent activity">
-              <div className="orb-matrix"><Orbs /><Orbs tone="blue" /><Orbs tone="mint" /></div>
-            </PreviewCard>
-          </CollectionSection>
-        </div>
-
-        <div id="tools">
-          <CollectionSection eyebrow="02 / Actions" title="Tools & action states">
-            <PreviewCard title="Web Search" category="Tool activity" align="top">
-              <WebSearch query="Accessible AI interface patterns" sources={[{ title: "Human-centered AI", domain: "example.org", done: true }, { title: "ARIA live regions", domain: "w3.org", done: true }, { title: "Streaming interfaces", domain: "example.com" }]} />
-            </PreviewCard>
-            <PreviewCard title="File Diff" category="Proposed changes" align="top"><FileDiff filename="greeting.ts" lines={diff} /></PreviewCard>
-            <PreviewCard title="Image Generation" category="Media progress" align="top"><ImageGeneration prompt="A quiet reading room at dusk" progress={72} /></PreviewCard>
-          </CollectionSection>
-        </div>
-
-        <div id="outputs">
-          <CollectionSection eyebrow="03 / Responses" title="Text & structured output">
-            <PreviewCard title="Streaming Text" category="Progressive response"><StreamingText text="The response arrives progressively, with a calm caret marking the live edge." speed={24} /></PreviewCard>
-            <PreviewCard title="Inline Citations" category="Source attribution" align="top">
-              <TextResponse><p>A useful answer makes the conclusion easy to find<CitationMark id={1} /> while preserving evidence<CitationMark id={2} />.</p><InlineCitations items={[{ id: 1, title: "Human-centered AI guidance", url: "https://www.nist.gov/itl/ai-risk-management-framework", domain: "nist.gov" }, { id: 2, title: "Accessible Rich Internet Applications", url: "https://www.w3.org/WAI/standards-guidelines/aria/", domain: "w3.org" }]} /></TextResponse>
-            </PreviewCard>
-            <PreviewCard title="Code Block" category="Technical output" align="top"><CodeBlock filename="agent.ts" language="typescript" code={'type State = "idle" | "thinking" | "done";\n\nexport const isWorking = (state: State) =>\n  state === "thinking";'} /></PreviewCard>
-            <PreviewCard title="Data Table" category="Structured results" align="top"><DataTable columns={columns} rows={[{ model: "Swift", latency: "320 ms", context: "64k" }, { model: "Balanced", latency: "740 ms", context: "128k" }, { model: "Deep", latency: "1.8 s", context: "256k" }]} caption="Model routing overview" /></PreviewCard>
-            <PreviewCard title="Comparison Table" category="Feature matrix" align="top"><ComparisonTable plans={["Starter", "Pro", "Team"]} features={[{ feature: "Agent sessions", values: ["100", "∞", "∞"] }, { feature: "Shared memory", values: [false, true, true] }, { feature: "Team controls", values: [false, false, true] }]} /></PreviewCard>
-            <PreviewCard title="To-do List" category="Multi-step progress"><TaskList title="Launch checklist" items={[{ id: "1", label: "Build interface", status: "done" }, { id: "2", label: "Verify accessibility", status: "active" }, { id: "3", label: "Publish release", status: "pending" }]} /></PreviewCard>
-          </CollectionSection>
-        </div>
-
-        <div id="input">
-          <CollectionSection eyebrow="04 / Composer" title="Rich & interactive">
-            <PreviewCard title="AI Agent Input" category="Prompt composer" className="preview-card--feature"><AgentInput models={["Swift", "Balanced", "Deep"]} /></PreviewCard>
-            <PreviewCard title="Text Response" category="Answer typography" className="preview-card--feature">
-              <TextResponse><h3>A clear response structure</h3><p>Lead with the answer, keep supporting detail readable, and use <code>inline code</code> only where it adds precision.</p><p><a href="https://github.com/zhaoxinyi02/agent-ui-css">Read the documentation ↗</a></p></TextResponse>
-            </PreviewCard>
-          </CollectionSection>
-        </div>
-      </div>
-
-      <section className="closing-note">
-        <span>Designed to disappear into your product.</span>
-        <p>Bring your own color, type, radius and voice. The components handle the interaction details.</p>
-      </section>
-
-      <footer className="site-footer"><span>Agent UI CSS · MIT License</span><span>Independent project · Not affiliated with AICSS</span><a href="#top">Back to top ↑</a></footer>
+      <footer className="site-footer">
+        <span>Agent UI CSS · MIT License</span>
+        <nav><a href="#thinking">Components</a><a href="https://github.com/zhaoxinyi02/agent-ui-css">GitHub</a></nav>
+      </footer>
     </main>
   );
 }

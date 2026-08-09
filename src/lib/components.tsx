@@ -49,16 +49,17 @@ export function ThinkingReasoning({ children, seconds = 4, defaultOpen = true }:
   const [open, setOpen] = useState(defaultOpen);
   return <section className="aui-reasoning">
     <button className="aui-reasoning__trigger" onClick={() => setOpen(!open)} aria-expanded={open}>
-      <span className="aui-reasoning__dot" />
-      <span>{open ? "Reasoning" : `Thought for ${seconds}s`}</span>
+      <span className={open ? "aui-reasoning__thinking" : ""}>{open ? "Thinking…" : `Thought for ${seconds}s`}</span>
       <Icon name="chevron" size={15} className={open ? "aui-rotate" : ""} />
     </button>
     {open && <div className="aui-reasoning__body">{children}</div>}
   </section>;
 }
 
-export function Orbs({ label = "Agent is working", tone = "violet" }: { label?: string; tone?: "violet" | "blue" | "mint" }) {
-  return <div className={`aui-orbs aui-orbs--${tone}`} role="status" aria-label={label}><i /><i /><i /></div>;
+export type OrbVariant = "wave" | "pulse" | "orbit" | "typing" | "stack";
+
+export function Orbs({ label = "Agent is working", tone = "violet", variant = "wave" }: { label?: string; tone?: "violet" | "blue" | "mint"; variant?: OrbVariant }) {
+  return <div className={`aui-orbs aui-orbs--${tone} aui-orbs--${variant}`} role="status" aria-label={label}><i /><i /><i /></div>;
 }
 
 export type SearchSource = { title: string; domain: string; done?: boolean };
