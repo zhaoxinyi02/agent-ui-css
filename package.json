@@ -1,0 +1,41 @@
+{
+  "name": "agent-ui-css",
+  "version": "0.1.0",
+  "private": false,
+  "description": "Original, dependency-light React components for AI product interfaces.",
+  "type": "module",
+  "files": ["dist"],
+  "main": "./dist/agent-ui-css.umd.cjs",
+  "module": "./dist/agent-ui-css.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/agent-ui-css.js",
+      "require": "./dist/agent-ui-css.umd.cjs"
+    },
+    "./styles.css": "./dist/agent-ui-css.css"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build && tsc -p tsconfig.lib.json",
+    "check": "tsc -b --pretty false",
+    "prepare": "npm run build",
+    "preview": "vite preview"
+  },
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18"
+  },
+  "devDependencies": {
+    "@types/react": "^19.1.9",
+    "@types/react-dom": "^19.1.7",
+    "@vitejs/plugin-react": "^4.7.0",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "typescript": "^5.9.2",
+    "vite": "^7.1.2"
+  },
+  "keywords": ["ai", "agent", "react", "components", "ui", "css", "typescript"],
+  "license": "MIT"
+}
