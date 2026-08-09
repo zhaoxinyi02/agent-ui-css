@@ -80,3 +80,9 @@
 @media (prefers-color-scheme: dark) {
   .aui-auto-theme { --aui-bg: #17171a; --aui-surface: #202024; --aui-surface-strong: #29292e; --aui-text: #f4f4f5; --aui-muted: #a1a1aa; --aui-faint: #71717a; --aui-border: #303036; --aui-accent-soft: #2a264f; }
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .aui-shimmer, .aui-orbs i, .aui-source__pending, .aui-image-gen__sweep, .aui-stream i, .aui-tasks li[data-status="active"] i { animation: none !important; }
+  .aui-reasoning__body { animation: none; }
+  .aui-progress i, .aui-reasoning__trigger svg { transition: none; }
+}
