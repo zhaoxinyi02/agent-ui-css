@@ -22,6 +22,29 @@ type Language = "en" | "zh";
 type Theme = "light" | "dark";
 type ModelRow = { model: string; latency: string; context: string };
 
+const LANGUAGE_KEY = "agent-ui-language";
+const THEME_KEY = "agent-ui-theme";
+
+function readPreference(key: string): string | null {
+  try {
+    return window.localStorage.getItem(key);
+  } catch {
+    return null;
+  }
+}
+
+function getInitialLanguage(): Language {
+  const saved = readPreference(LANGUAGE_KEY);
+  if (saved === "en" || saved === "zh") return saved;
+  return window.navigator.language.toLowerCase().startsWith("zh") ? "zh" : "en";
+}
+
+function getInitialTheme(): Theme {
+  const saved = readPreference(THEME_KEY);
+  if (saved === "light" || saved === "dark") return saved;
+  return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+}
+
 const messages = {
   en: {
     nav: { components: "Components", docs: "Documentation", github: "View on GitHub", label: "Primary navigation" },
@@ -114,13 +137,19 @@ function OrbSheet({ label }: { label: string }) {
 }
 
 export function App() {
-  const [language, setLanguage] = useState<Language>("en");
-  const [theme, setTheme] = useState<Theme>("light");
+  const [language, setLanguage] = useState<Language>(getInitialLanguage);
+  const [theme, setTheme] = useState<Theme>(getInitialTheme);
   const t = messages[language];
 
   useEffect(() => {
     document.documentElement.lang = language === "zh" ? "zh-CN" : "en";
     document.documentElement.dataset.theme = theme;
+    try {
+      window.localStorage.setItem(LANGUAGE_KEY, language);
+      window.localStorage.setItem(THEME_KEY, theme);
+    } catch {
+      // The controls still work when storage is blocked by the browser.
+    }
   }, [language, theme]);
 
   const localizedColumns: DataColumn<ModelRow>[] = columns.map((column) => language === "zh" ? { ...column, label: column.key === "model" ? "模型" : column.key === "latency" ? "延迟" : "上下文" } : column);

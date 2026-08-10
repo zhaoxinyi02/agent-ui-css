@@ -19,6 +19,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build && tsc -p tsconfig.lib.json",
+    "build:site": "tsc -b && vite build --config vite.site.config.ts",
     "check": "tsc -b --pretty false",
     "prepare": "npm run build",
     "preview": "vite preview"
