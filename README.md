@@ -2,6 +2,8 @@
 
 Original, dependency-light React components for AI and agent interfaces. The library includes thinking states, tool activity, streaming output, citations, tables, diffs, task progress, media generation, agent input, and a small SVG icon set.
 
+**Live demo:** [au.lansuan.cc](https://au.lansuan.cc/)
+
 > Independent open-source project. This repository is not affiliated with, endorsed by, or sourced from AICSS. It was written from scratch after reviewing public interaction-pattern descriptions. No AICSS logo, paid source code, or proprietary asset is included.
 
 ## Components
@@ -68,6 +70,7 @@ npm install
 npm run dev
 npm run check
 npm run build
+npm run build:site
 ```
 
 ## Design and accessibility notes
