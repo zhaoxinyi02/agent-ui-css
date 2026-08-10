@@ -27,9 +27,6 @@ Agent UI CSS is an original, lightweight collection of composable React componen
 - Accessible semantics and reduced-motion support
 - Localizable text props and automatic dark theme support
 
-> [!NOTE]
-> This is an independent open-source project. It is not affiliated with, endorsed by, or officially partnered with AICSS. All code and icons in this repository are original and do not include AICSS paid source code, branding, or proprietary assets.
-
 ## Quick start
 
 ### Install
