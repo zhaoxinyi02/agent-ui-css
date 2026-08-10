@@ -45,11 +45,11 @@ export function ThinkingState({ label = "Thinking" }: { label?: string }) {
   return <span className="aui-shimmer" aria-live="polite">{label}</span>;
 }
 
-export function ThinkingReasoning({ children, seconds = 4, defaultOpen = true }: { children: ReactNode; seconds?: number; defaultOpen?: boolean }) {
+export function ThinkingReasoning({ children, seconds = 4, defaultOpen = true, thinkingLabel = "Thinking…", thoughtLabel = (value) => `Thought for ${value}s` }: { children: ReactNode; seconds?: number; defaultOpen?: boolean; thinkingLabel?: string; thoughtLabel?: (seconds: number) => string }) {
   const [open, setOpen] = useState(defaultOpen);
   return <section className="aui-reasoning">
     <button className="aui-reasoning__trigger" onClick={() => setOpen(!open)} aria-expanded={open}>
-      <span className={open ? "aui-reasoning__thinking" : ""}>{open ? "Thinking…" : `Thought for ${seconds}s`}</span>
+      <span className={open ? "aui-reasoning__thinking" : ""}>{open ? thinkingLabel : thoughtLabel(seconds)}</span>
       <Icon name="chevron" size={15} className={open ? "aui-rotate" : ""} />
     </button>
     {open && <div className="aui-reasoning__body">{children}</div>}
@@ -63,20 +63,21 @@ export function Orbs({ label = "Agent is working", tone = "violet", variant = "w
 }
 
 export type SearchSource = { title: string; domain: string; done?: boolean };
-export function WebSearch({ query, sources }: { query: string; sources: SearchSource[] }) {
+export function WebSearch({ query, sources, label = "Searching the web" }: { query: string; sources: SearchSource[]; label?: string }) {
   return <section className="aui-tool-card">
-    <header className="aui-tool-card__header"><Icon name="search" /><div><span className="aui-kicker">Searching the web</span><strong>{query}</strong></div></header>
+    <header className="aui-tool-card__header"><Icon name="search" /><div><span className="aui-kicker">{label}</span><strong>{query}</strong></div></header>
     <div className="aui-source-list">{sources.map((source) => <div className="aui-source" key={`${source.domain}-${source.title}`}><span className={source.done ? "aui-source__done" : "aui-source__pending"}>{source.done ? <Icon name="check" size={14} /> : <Icon name="globe" size={14} />}</span><div><strong>{source.title}</strong><small>{source.domain}</small></div></div>)}</div>
   </section>;
 }
 
 export type DiffLine = { type: "add" | "remove" | "context"; content: string; oldNumber?: number; newNumber?: number };
-export function FileDiff({ filename, lines }: { filename: string; lines: DiffLine[] }) {
-  return <section className="aui-diff"><header><Icon name="file" size={16} /><strong>{filename}</strong><span>{lines.filter((line) => line.type === "add").length} additions</span></header><pre>{lines.map((line, index) => <div className={`aui-diff__line aui-diff__line--${line.type}`} key={index}><span>{line.oldNumber ?? ""}</span><span>{line.newNumber ?? ""}</span><b>{line.type === "add" ? "+" : line.type === "remove" ? "−" : " "}</b><code>{line.content}</code></div>)}</pre></section>;
+export function FileDiff({ filename, lines, additionsLabel = (count) => `${count} additions` }: { filename: string; lines: DiffLine[]; additionsLabel?: (count: number) => string }) {
+  const additions = lines.filter((line) => line.type === "add").length;
+  return <section className="aui-diff"><header><Icon name="file" size={16} /><strong>{filename}</strong><span>{additionsLabel(additions)}</span></header><pre>{lines.map((line, index) => <div className={`aui-diff__line aui-diff__line--${line.type}`} key={index}><span>{line.oldNumber ?? ""}</span><span>{line.newNumber ?? ""}</span><b>{line.type === "add" ? "+" : line.type === "remove" ? "−" : " "}</b><code>{line.content}</code></div>)}</pre></section>;
 }
 
-export function ImageGeneration({ prompt, progress = 68, imageUrl }: { prompt: string; progress?: number; imageUrl?: string }) {
-  return <figure className="aui-image-gen">{imageUrl ? <img src={imageUrl} alt={prompt} /> : <div className="aui-image-gen__canvas"><Icon name="image" size={28} /><span className="aui-image-gen__sweep" /></div>}<figcaption><div><span>Generating image</span><strong>{prompt}</strong></div><span>{Math.max(0, Math.min(100, progress))}%</span></figcaption><div className="aui-progress"><i style={{ width: `${Math.max(0, Math.min(100, progress))}%` }} /></div></figure>;
+export function ImageGeneration({ prompt, progress = 68, imageUrl, label = "Generating image" }: { prompt: string; progress?: number; imageUrl?: string; label?: string }) {
+  return <figure className="aui-image-gen">{imageUrl ? <img src={imageUrl} alt={prompt} /> : <div className="aui-image-gen__canvas"><Icon name="image" size={28} /><span className="aui-image-gen__sweep" /></div>}<figcaption><div><span>{label}</span><strong>{prompt}</strong></div><span>{Math.max(0, Math.min(100, progress))}%</span></figcaption><div className="aui-progress"><i style={{ width: `${Math.max(0, Math.min(100, progress))}%` }} /></div></figure>;
 }
 
 export function TextResponse({ children }: { children: ReactNode }) {
@@ -100,10 +101,10 @@ export function InlineCitations({ items }: { items: Citation[] }) {
   return <ol className="aui-citations">{items.map((item) => <li key={item.id}><span>{item.id}</span><a href={item.url} target="_blank" rel="noreferrer"><strong>{item.title}</strong><small>{item.domain ?? new URL(item.url).hostname}</small></a></li>)}</ol>;
 }
 
-export function CodeBlock({ code, language = "text", filename }: { code: string; language?: string; filename?: string }) {
+export function CodeBlock({ code, language = "text", filename, copyLabel = "Copy", copiedLabel = "Copied" }: { code: string; language?: string; filename?: string; copyLabel?: string; copiedLabel?: string }) {
   const [copied, setCopied] = useState(false);
   const copy = async () => { await navigator.clipboard.writeText(code); setCopied(true); window.setTimeout(() => setCopied(false), 1400); };
-  return <section className="aui-code"><header><span>{filename ?? language}</span><button onClick={copy}><Icon name={copied ? "check" : "copy"} size={15} />{copied ? "Copied" : "Copy"}</button></header><pre><code>{code}</code></pre></section>;
+  return <section className="aui-code"><header><span>{filename ?? language}</span><button onClick={copy}><Icon name={copied ? "check" : "copy"} size={15} />{copied ? copiedLabel : copyLabel}</button></header><pre><code>{code}</code></pre></section>;
 }
 
 export type TaskItem = { id: string; label: string; status: "done" | "active" | "pending" };
@@ -123,14 +124,14 @@ export function ComparisonTable({ plans, features }: { plans: string[]; features
   return <div className="aui-table-wrap"><table className="aui-table aui-comparison"><thead><tr><th>Feature</th>{plans.map((plan) => <th key={plan}>{plan}</th>)}</tr></thead><tbody>{features.map((row) => <tr key={row.feature}><td>{row.feature}</td>{row.values.map((value, index) => <td key={index}>{value === true ? <Icon name="check" size={16} /> : value === false ? <span className="aui-dash">—</span> : value}</td>)}</tr>)}</tbody></table></div>;
 }
 
-export function AgentInput({ placeholder = "Ask the agent…", models = ["Fast", "Deep"], onSubmit }: { placeholder?: string; models?: string[]; onSubmit?: (value: string, model: string) => void }) {
+export function AgentInput({ placeholder = "Ask the agent…", models = ["Fast", "Deep"], onSubmit, enhanceLabel = "Enhance", enhancingLabel = "Enhancing", attachLabel = "Attach a file", modelLabel = "Model", sendLabel = "Send" }: { placeholder?: string; models?: string[]; onSubmit?: (value: string, model: string) => void; enhanceLabel?: string; enhancingLabel?: string; attachLabel?: string; modelLabel?: string; sendLabel?: string }) {
   const [value, setValue] = useState("");
   const [model, setModel] = useState(models[0] ?? "Default");
   const [enhancing, setEnhancing] = useState(false);
   const canSubmit = value.trim().length > 0;
   const enhance = () => { if (!canSubmit) return; setEnhancing(true); window.setTimeout(() => { setValue((current) => `Please provide a clear, structured response to: ${current}`); setEnhancing(false); }, 650); };
   const submit = (event: FormEvent) => { event.preventDefault(); if (!canSubmit) return; onSubmit?.(value.trim(), model); setValue(""); };
-  return <form className="aui-agent-input" onSubmit={submit}><textarea value={value} onChange={(event) => setValue(event.target.value)} placeholder={placeholder} rows={3} /><footer><div><button type="button" aria-label="Attach a file"><Icon name="attachment" /></button><select value={model} onChange={(event) => setModel(event.target.value)} aria-label="Model">{models.map((item) => <option key={item}>{item}</option>)}</select><button type="button" onClick={enhance} disabled={!canSubmit || enhancing}><Icon name="magic" size={16} />{enhancing ? "Enhancing" : "Enhance"}</button></div><button className="aui-agent-input__send" type="submit" disabled={!canSubmit} aria-label="Send"><Icon name="arrow-up" /></button></footer></form>;
+  return <form className="aui-agent-input" onSubmit={submit}><textarea value={value} onChange={(event) => setValue(event.target.value)} placeholder={placeholder} rows={3} /><footer><div><button type="button" aria-label={attachLabel}><Icon name="attachment" /></button><select value={model} onChange={(event) => setModel(event.target.value)} aria-label={modelLabel}>{models.map((item) => <option key={item}>{item}</option>)}</select><button type="button" onClick={enhance} disabled={!canSubmit || enhancing}><Icon name="magic" size={16} />{enhancing ? enhancingLabel : enhanceLabel}</button></div><button className="aui-agent-input__send" type="submit" disabled={!canSubmit} aria-label={sendLabel}><Icon name="arrow-up" /></button></footer></form>;
 }
 
 export function ComponentCount({ values }: { values: number[] }) {

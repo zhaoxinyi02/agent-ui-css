@@ -3,6 +3,11 @@
 - Hero source direction: `.audit/2026-08-09-refinement/07-local-final-hero.png`
 - Catalog source truth: `.design-qa/source-aicss.png`
 - Current implementation: `.design-qa/hero-final.png`
+- English light state: `.design-qa/i18n-en-light.png`
+- Chinese light state: `.design-qa/i18n-zh-light.png`
+- English dark state: `.design-qa/i18n-en-dark.png`
+- Chinese dark state: `.design-qa/i18n-zh-dark.png`
+- Dark catalog state: `.design-qa/theme-dark-gallery.png`
 - Hero comparison: `.design-qa/hero-comparison-side.png`
 - Catalog comparison: `.design-qa/comparison-final.png`
 - Primary desktop viewport: approximately 1280 × 720 CSS pixels, DPR 2
@@ -25,11 +30,12 @@ The catalog remains grounded in the measured AICSS public layout: 52.5px sticky 
 
 - Fonts and typography: Inter/system UI typography is retained for controls and catalog metadata; the Hero uses a large 500-weight sans-serif display line with a restrained serif emphasis. Wrapping remains balanced across three lines.
 - Spacing and layout rhythm: the Hero uses a two-column presentation with aligned optical centers and stays within one desktop viewport. Catalog geometry remains unchanged from the previously passed measured comparison.
-- Colors and tokens: white surfaces, `#1a1a1a` foreground, muted gray copy, `#e6e8ec` borders, and a single desaturated blue accent maintain the established token system.
+- Colors and tokens: the light theme uses white surfaces, `#1a1a1a` foreground, muted gray copy, `#e6e8ec` borders, and one desaturated blue accent. The dark theme maps the same hierarchy to `#0a0a0a` page background, `#1a1a1a` surfaces, `#303030` borders, `#f5f5f5` foreground, and a lighter blue accent.
 - Image quality and asset fidelity: no raster hero art or replacement illustration is used. The preview is made from the actual reusable components being demonstrated.
 - Copy and content: the headline communicates the product category; supporting copy names the agent behaviors covered; counts and licensing claims match the repository.
 - States and interactions: Browse Components scrolls to `#components`; the wordmark returns to `#top`; reasoning, task disclosure, model selection, enhancer, and composer controls remain interactive.
 - Accessibility: semantic headings, navigation labels, focus styles, disabled states, and reduced-motion rules remain present.
+- Localization: page-level language metadata, navigation, Hero, section headings, component examples, control labels, placeholders, status copy, and accessibility labels switch together between English and Simplified Chinese.
 
 ## Comparison history
 
@@ -55,12 +61,21 @@ The catalog remains grounded in the measured AICSS public layout: 52.5px sticky 
 - CTA hierarchy, first-screen fit, typography, stats, and live preview were visually inspected together.
 - No actionable P0, P1, or P2 issues remain for the selected desktop Hero.
 
+### Localization and theme pass — passed
+
+- English light, Chinese light, English dark, and Chinese dark states were rendered and visually inspected.
+- Dark mode was checked at both the Hero and catalog positions.
+- Theme and language switches preserve layout, hierarchy, and interaction state.
+- No actionable P0, P1, or P2 issues remain for the four desktop combinations.
+
 ## Primary interactions tested
 
 - Browse Components: navigated to `#components` and exposed the Thinking & Reasoning heading.
 - Wordmark: returned to `#top` and restored the Hero.
 - Fresh page console: no errors or warnings.
 - Production type check and build: passed.
+- Language control: English → Chinese → English; `html[lang]` updated from `en` to `zh-CN` and back.
+- Theme control: light → dark → light; `html[data-theme]` and computed body background updated correctly.
 
 ## Evidence limits
 
