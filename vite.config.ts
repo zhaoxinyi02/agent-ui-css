@@ -1,9 +1,9 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 
-export default defineConfig({
+export default defineConfig(({ command }) => ({
   plugins: [react()],
-  publicDir: false,
+  publicDir: command === "serve" ? "public-site" : false,
   build: {
     lib: {
       entry: "src/lib/index.ts",
@@ -17,4 +17,4 @@ export default defineConfig({
       },
     },
   },
-});
+}));

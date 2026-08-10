@@ -1,5 +1,7 @@
 <div align="center">
 
+<img src="./public-site/favicon.svg" width="88" height="88" alt="Agent UI CSS Logo" />
+
 # Agent UI CSS
 
 Polished React interface building blocks for AI and agent products.

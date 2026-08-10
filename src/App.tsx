@@ -157,7 +157,7 @@ export function App() {
 
   return <main id="top">
     <header className="site-header">
-      <a className="wordmark" href="#top" aria-label="Agent UI CSS home"><strong>Agent UI</strong><span>CSS</span><small>v0.1</small></a>
+      <a className="wordmark" href="#top" aria-label="Agent UI CSS home"><img className="wordmark__logo" src="/favicon.svg" alt="" /><strong>Agent UI</strong><span>CSS</span><small>v0.1</small></a>
       <div className="header-right">
         <nav aria-label={t.nav.label}><a href="#components">{t.nav.components}</a><a href="https://github.com/zhaoxinyi02/agent-ui-css">{t.nav.docs}</a><a className="nav-primary" href="https://github.com/zhaoxinyi02/agent-ui-css">{t.nav.github}</a></nav>
         <div className="display-controls" aria-label={language === "zh" ? "显示设置" : "Display settings"}>

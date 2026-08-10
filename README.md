@@ -1,5 +1,7 @@
 <div align="center">
 
+<img src="./public-site/favicon.svg" width="88" height="88" alt="Agent UI CSS Logo" />
+
 # Agent UI CSS
 
 为 AI 与智能体产品打造的精致 React 界面组件库。

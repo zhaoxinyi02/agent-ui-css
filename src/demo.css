@@ -6,6 +6,7 @@ a { color: inherit; }
 
 .site-header { position: sticky; z-index: 50; top: 0; display: flex; height: 52.5px; align-items: center; justify-content: space-between; padding: 0 24px; border-bottom: .5px solid #e6e8ec; background: rgba(255,255,255,.82); backdrop-filter: saturate(180%) blur(12px); }
 .wordmark { display: flex; align-items: center; gap: 4px; text-decoration: none; }
+.wordmark__logo { width: 24px; height: 24px; margin-right: 4px; border-radius: 7px; }
 .wordmark strong { font-size: 15px; font-weight: 650; letter-spacing: -.035em; }
 .wordmark > span { padding: 1px 5px 2px; border-radius: 5px; color: #fff; background: #8ca8ea; font-size: 11px; font-weight: 650; line-height: 1.35; letter-spacing: -.02em; }
 .wordmark small { margin-left: 5px; color: #a1a1a1; font-size: 10px; font-weight: 425; }

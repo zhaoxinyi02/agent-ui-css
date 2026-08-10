@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title id="title">Agent UI CSS</title>
+  <rect x="2" y="2" width="60" height="60" rx="16" fill="#18181b"/>
+  <path d="M16.5 46 28.8 18.8a3.5 3.5 0 0 1 6.4 0L47.5 46" fill="none" stroke="#fafafa" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M23.5 36.5h17" fill="none" stroke="#9cb1e6" stroke-width="6" stroke-linecap="round"/>
+</svg>
