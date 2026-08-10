@@ -79,20 +79,52 @@ function OrbSheet() {
 
 export function App() {
   return (
-    <main>
+    <main id="top">
       <header className="site-header">
-        <a className="wordmark" href="#thinking" aria-label="Agent UI CSS components">
+        <a className="wordmark" href="#top" aria-label="Agent UI CSS home">
           <strong>Agent UI</strong>
           <span>CSS</span>
           <small>v0.1</small>
         </a>
         <nav aria-label="Primary navigation">
+          <a href="#components">Components</a>
           <a href="https://github.com/zhaoxinyi02/agent-ui-css">Documentation</a>
           <a className="nav-primary" href="https://github.com/zhaoxinyi02/agent-ui-css">View on GitHub</a>
         </nav>
       </header>
 
-      <div className="gallery-shell">
+      <section className="showcase-hero" aria-labelledby="showcase-title">
+        <div className="showcase-copy">
+          <span className="showcase-kicker">Open source · React · TypeScript · Plain CSS</span>
+          <h1 id="showcase-title">Interface building blocks for <em>thinking products.</em></h1>
+          <p>Fourteen considered components for agents that reason, act, stream, cite and ask for the next thing.</p>
+          <div className="showcase-actions">
+            <a className="showcase-primary" href="#components">Browse components</a>
+            <a href="https://github.com/zhaoxinyi02/agent-ui-css">Read the docs</a>
+          </div>
+          <dl className="showcase-stats">
+            <div><dt>Components</dt><dd>14</dd></div>
+            <div><dt>UI dependencies</dt><dd>0</dd></div>
+            <div><dt>License</dt><dd>MIT</dd></div>
+          </dl>
+        </div>
+
+        <div className="showcase-preview" aria-label="Live component preview">
+          <div className="showcase-preview__bar">
+            <span>Live agent preview</span>
+            <Orbs variant="typing" tone="violet" label="Agent is active" />
+          </div>
+          <div className="showcase-preview__body">
+            <ThinkingReasoning seconds={6}>
+              <p>I’ll review the request, verify the constraints, and turn the result into a reusable component.</p>
+            </ThinkingReasoning>
+            <TaskList title="Building interface" items={[{ id: "hero-1", label: "Understand the request", status: "done" }, { id: "hero-2", label: "Refine the interaction", status: "active" }, { id: "hero-3", label: "Return the result", status: "pending" }]} />
+            <AgentInput placeholder="Ask the agent to change something…" models={["Balanced", "Fast", "Deep"]} />
+          </div>
+        </div>
+      </section>
+
+      <div className="gallery-shell" id="components">
         <GallerySection id="thinking" title="Thinking & Reasoning">
           <GalleryCard title="Thinking State" category="Thinking & Reasoning"><ThinkingState /></GalleryCard>
           <GalleryCard title="Thinking + Reasoning" category="Thinking & Reasoning">
