@@ -3,6 +3,15 @@
   "version": "0.1.0",
   "private": false,
   "description": "Original, dependency-light React components for AI product interfaces.",
+  "homepage": "https://au.lansuan.cc/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zhaoxinyi02/agent-ui-css.git"
+  },
+  "bugs": {
+    "url": "https://github.com/zhaoxinyi02/agent-ui-css/issues"
+  },
+  "author": "zhaoxinyi02",
   "type": "module",
   "files": ["dist"],
   "main": "./dist/agent-ui-css.umd.cjs",
@@ -37,6 +46,6 @@
     "typescript": "^5.9.2",
     "vite": "^7.1.2"
   },
-  "keywords": ["ai", "agent", "react", "components", "ui", "css", "typescript"],
+  "keywords": ["ai", "agent", "react", "components", "ui", "component-library", "design-system", "css", "typescript"],
   "license": "MIT"
 }

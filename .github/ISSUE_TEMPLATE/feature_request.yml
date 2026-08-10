@@ -1,0 +1,24 @@
+name: 功能建议 / Feature request
+description: 建议组件、能力或开发体验改进
+title: "[Feature]: "
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: 使用场景 / Use case
+      description: 你希望解决什么问题？
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: 建议方案 / Proposal
+      description: 描述理想的 API、交互或视觉行为。
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: 其他方案 / Alternatives
+      description: 你尝试过哪些替代方案？
