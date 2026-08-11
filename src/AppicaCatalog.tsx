@@ -75,7 +75,6 @@ export type CatalogExtraCard = {
   preview: ReactNode;
   prompt: string;
   wide?: boolean;
-  tall?: boolean;
 };
 
 const componentNamesZh: Record<string, string> = {
@@ -228,7 +227,7 @@ function Preview({ slug, language }: { slug: string; language: AppicaCatalogLang
     "otp-field": <OTPField className="appica-centered-control" length={4} aria-label={text("Verification code", "验证码")}><OTPFieldInput /><OTPFieldInput aria-label={text("Digit 2", "第 2 位")} /><OTPFieldSeparator /><OTPFieldInput aria-label={text("Digit 3", "第 3 位")} /><OTPFieldInput aria-label={text("Digit 4", "第 4 位")} /></OTPField>,
     pagination: <Pagination className="appica-centered-control"><PaginationList><PaginationItem><PaginationLink href="#1">1</PaginationLink></PaginationItem><PaginationItem><PaginationLink href="#2" active>2</PaginationLink></PaginationItem><PaginationItem><PaginationLink href="#3">3</PaginationLink></PaginationItem></PaginationList></Pagination>,
     popover: <Popover><PopoverTrigger render={<Button variant="outline">{text("Open popover", "打开浮层")}</Button>} /><PopoverContent><PopoverTitle>{text("Quick settings", "快捷设置")}</PopoverTitle><PopoverDescription>{text("Adjust this component in context.", "在当前场景中调整组件。")}</PopoverDescription><PopoverClose render={<Button size="sm">{text("Done", "完成")}</Button>} /></PopoverContent></Popover>,
-    "preview-card": <PreviewCard><PreviewCardTrigger href="#preview" delay={0} closeDelay={100}>{text("Hover for preview", "悬停查看预览")}</PreviewCardTrigger><PreviewCardContent><strong>Agent UI CSS</strong><p className="appica-compact-copy">{text("Reusable interface building blocks.", "可复用的界面基础组件。")}</p></PreviewCardContent></PreviewCard>,
+    "preview-card": <PreviewCard><PreviewCardTrigger className="appica-centered-control" href="#preview" delay={0} closeDelay={100}>{text("Hover for preview", "悬停查看预览")}</PreviewCardTrigger><PreviewCardContent><strong>Agent UI CSS</strong><p className="appica-compact-copy">{text("Reusable interface building blocks.", "可复用的界面基础组件。")}</p></PreviewCardContent></PreviewCard>,
     progress: <Progress value={68}><ProgressLabel>{text("Building", "正在构建")}</ProgressLabel><ProgressValue /></Progress>,
     radio: <RadioGroup className="appica-centered-control" defaultValue="a" aria-label={text("Plan", "方案")}><label className="appica-control-line"><Radio value="a" />{text("Starter", "入门版")}</label><label className="appica-control-line"><Radio value="b" />{text("Pro", "专业版")}</label></RadioGroup>,
     "radio-group": <RadioGroup className="appica-centered-control" defaultValue="balanced" orientation="horizontal" aria-label={text("Model", "模型")}><label className="appica-control-line"><Radio value="fast" />{text("Fast", "快速")}</label><label className="appica-control-line"><Radio value="balanced" />{text("Balanced", "均衡")}</label></RadioGroup>,
@@ -326,7 +325,7 @@ export function AppicaGallery({ language, extraGroups = {} }: { language: Appica
           <div className="appica-card-preview"><Preview slug={item.slug} language={language} /></div>
           <footer><div><strong>{language === "zh" ? item.zh : item.name}</strong><small>{language === "zh" ? group.zh : item.slug}</small></div><CopyButton className="appica-prompt-copy" variant="ghost" size="sm" value={appicaPrompt(item, language)} label={copy.prompt} copiedLabel={copy.copied}>{copy.prompt}</CopyButton></footer>
         </article>)}
-        {group.extras.map((item) => <article className={`appica-card appica-card--agent${item.wide ? " appica-card--wide" : ""}${item.tall ? " appica-card--tall" : ""}`} key={item.id}>
+        {group.extras.map((item) => <article className={`appica-card appica-card--agent${item.wide ? " appica-card--wide" : ""}`} key={item.id}>
           <div className="appica-card-preview appica-card-preview--agent">{item.preview}</div>
           <footer><div><strong>{item.title}</strong><small>{item.meta}</small></div><CopyButton className="appica-prompt-copy" variant="ghost" size="sm" value={item.prompt} label={copy.prompt} copiedLabel={copy.copied}>{copy.prompt}</CopyButton></footer>
         </article>)}</div>

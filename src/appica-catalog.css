@@ -48,18 +48,17 @@ button, input { font: inherit; }
 .appica-card:hover { transform: translateY(-2px); box-shadow: 0 12px 28px #171b2610; }
 .appica-card-preview { display: flex; height: 190px; align-items: center; justify-content: center; overflow: hidden; padding: 28px; border-bottom: 1px solid #e8eaee; background: linear-gradient(145deg, #fff, #fafbfc); }
 .appica-card-preview > * { width: min(100%, 290px); }
-.appica-card footer { display: flex; min-height: 64px; align-items: center; justify-content: space-between; gap: 12px; padding: 0 15px; }
-.appica-card footer > div { display: grid; min-width: 0; gap: 1px; }
-.appica-card footer strong { font-size: 13px; letter-spacing: -.01em; }
-.appica-card footer small { overflow: hidden; color: #9aa0aa; font-size: 9px; text-overflow: ellipsis; white-space: nowrap; }
-.appica-card footer a { flex: none; color: #6b74dc; font-size: 10px; font-weight: 650; text-decoration: none; }
+.appica-card > footer { display: flex; min-height: 64px; align-items: center; justify-content: space-between; gap: 12px; padding: 0 15px; }
+.appica-card > footer > div { display: grid; min-width: 0; gap: 1px; }
+.appica-card > footer strong { font-size: 13px; letter-spacing: -.01em; }
+.appica-card > footer small { overflow: hidden; color: #9aa0aa; font-size: 9px; text-overflow: ellipsis; white-space: nowrap; }
+.appica-card > footer a { flex: none; color: #6b74dc; font-size: 10px; font-weight: 650; text-decoration: none; }
 .appica-prompt-copy { flex: none; height: 30px; padding-inline: 9px; color: #6b74dc; font-size: 10px; }
 .appica-prompt-copy svg { width: 13px; height: 13px; }
-.appica-card--agent .appica-card-preview { height: 270px; padding: 24px; }
+.appica-card--agent .appica-card-preview { height: 340px; padding: 24px; }
 .appica-card-preview--agent > * { width: min(100%, 360px); }
 .appica-card--wide { grid-column: span 2; }
 .appica-card--wide .appica-card-preview--agent { height: 380px; }
-.appica-card--tall .appica-card-preview--agent { height: 480px; }
 .appica-card--wide .appica-card-preview--agent > * { width: min(100%, 620px); }
 .appica-card--agent .aui-tool-card, .appica-card--agent .aui-diff, .appica-card--agent .aui-image-gen, .appica-card--agent .aui-code, .appica-card--agent .aui-tasks, .appica-card--agent .aui-agent-input, .appica-card--agent .aui-table-wrap { border-color: #e1e4ea; border-radius: 10px; box-shadow: 0 1px 2px #00000005; }
 .appica-card--agent .aui-reasoning { max-width: 350px; }
