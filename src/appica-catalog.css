@@ -54,6 +54,12 @@ button, input { font: inherit; }
 .appica-control-line { display: flex; align-items: center; justify-content: center; gap: 10px; color: #626875; font-size: 12px; }
 .appica-centered-control { width: fit-content !important; max-width: 100%; margin-inline: auto; justify-content: center; }
 .appica-centered-control[data-orientation="vertical"] { align-items: flex-start; }
+.appica-tabs-demo { width: fit-content !important; min-width: 150px; margin-inline: auto; text-align: center; }
+.appica-tabs-demo [role="tablist"] { margin-inline: auto; }
+.appica-countdown-demo { gap: 7px; font-size: 20px; font-weight: 650; font-variant-numeric: tabular-nums; letter-spacing: .02em; }
+.appica-countdown-demo > span:nth-child(even) { color: #9298a4; font-weight: 500; }
+.appica-collapsible-demo { text-align: center; }
+.appica-collapsible-demo [data-slot="collapsible-trigger"] { margin-inline: auto; }
 .appica-pattern-demo, .appica-glow-demo { display: grid; min-height: 116px; place-content: center; gap: 5px; border-radius: 16px; text-align: center; }
 .appica-pattern-demo span, .appica-glow-demo small, .appica-compact-copy { margin: 0; color: #9298a4; font-size: 11px; }
 .appica-calendar-demo { display: flex; height: 132px; align-items: center; justify-content: center; overflow: hidden; }
