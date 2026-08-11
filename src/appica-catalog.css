@@ -59,7 +59,7 @@ button, input { font: inherit; }
 .appica-card-preview--agent > * { width: min(100%, 360px); }
 .appica-card--wide { grid-column: span 2; }
 .appica-card--wide .appica-card-preview--agent { height: 380px; }
-.appica-card--tall .appica-card-preview--agent { height: 440px; }
+.appica-card--tall .appica-card-preview--agent { height: 480px; }
 .appica-card--wide .appica-card-preview--agent > * { width: min(100%, 620px); }
 .appica-card--agent .aui-tool-card, .appica-card--agent .aui-diff, .appica-card--agent .aui-image-gen, .appica-card--agent .aui-code, .appica-card--agent .aui-tasks, .appica-card--agent .aui-agent-input, .appica-card--agent .aui-table-wrap { border-color: #e1e4ea; border-radius: 10px; box-shadow: 0 1px 2px #00000005; }
 .appica-card--agent .aui-reasoning { max-width: 350px; }
