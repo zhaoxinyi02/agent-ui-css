@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { AppicaGallery } from "./AppicaCatalog";
+import { Badge, Button } from "../vendor/appica-ui-react/src";
 import {
   AgentInput,
   CitationMark,
@@ -47,13 +49,13 @@ function getInitialTheme(): Theme {
 
 const messages = {
   en: {
-    nav: { components: "Components", appica: "64 more", docs: "Documentation", github: "View on GitHub", label: "Primary navigation" },
+    nav: { components: "Agent components", appica: "Interface components", docs: "Documentation", github: "View on GitHub", label: "Primary navigation" },
     controls: { language: "Switch to Chinese", languageShort: "中文", dark: "Dark", light: "Light", themeDark: "Switch to dark theme", themeLight: "Switch to light theme" },
     hero: {
       kicker: "Open source · React · TypeScript · Plain CSS",
       title: "Interface building blocks for",
       emphasis: "thinking products.",
-      description: "Fourteen considered components for agents that reason, act, stream, cite and ask for the next thing.",
+      description: "Seventy-eight reusable components for agent experiences and the everyday interface around them.",
       browse: "Browse components", docs: "Read the docs", preview: "Live agent preview", active: "Agent is active",
       reasoning: "I’ll review the request, verify the constraints, and turn the result into a reusable component.",
       taskTitle: "Building interface", task1: "Understand the request", task2: "Refine the interaction", task3: "Return the result",
@@ -74,16 +76,16 @@ const messages = {
       launch: "Launch checklist", build: "Build interface", verify: "Verify accessibility", publish: "Publish release", table: "Model routing overview", feature: "Feature", sessions: "Agent sessions", memory: "Shared memory", team: "Team controls",
       placeholder: "Ask the agent…", enhance: "Enhance", enhancing: "Enhancing", attach: "Attach a file", model: "Model", send: "Send", copy: "Copy", copied: "Copied",
     },
-    footer: { license: "Agent UI CSS · MIT License", components: "Components", appica: "Appica collection", github: "GitHub" },
+    footer: { license: "Agent UI CSS · MIT License", components: "Agent components", appica: "Interface components", github: "GitHub" },
   },
   zh: {
-    nav: { components: "组件", appica: "更多 64 个", docs: "使用文档", github: "查看 GitHub", label: "主导航" },
+    nav: { components: "智能体组件", appica: "界面组件", docs: "使用文档", github: "查看 GitHub", label: "主导航" },
     controls: { language: "切换到英文", languageShort: "EN", dark: "深色", light: "浅色", themeDark: "切换到深色主题", themeLight: "切换到浅色主题" },
     hero: {
       kicker: "开源 · React · TypeScript · 原生 CSS",
       title: "为会思考的产品打造",
       emphasis: "界面组件。",
-      description: "十四个精心设计的组件，覆盖智能体的推理、行动、流式输出、引用与下一步输入。",
+      description: "七十八个可复用组件，既覆盖智能体体验，也覆盖产品周围所有常用界面。",
       browse: "浏览组件", docs: "阅读文档", preview: "智能体实时预览", active: "智能体运行中",
       reasoning: "我会理解需求、核对约束，并把结果整理成可以直接复用的组件。",
       taskTitle: "正在构建界面", task1: "理解需求", task2: "优化交互", task3: "返回结果",
@@ -104,7 +106,7 @@ const messages = {
       launch: "发布检查清单", build: "构建界面", verify: "验证无障碍", publish: "发布版本", table: "模型路由概览", feature: "功能", sessions: "智能体会话", memory: "共享记忆", team: "团队控制",
       placeholder: "向智能体提问…", enhance: "优化提示词", enhancing: "正在优化", attach: "添加附件", model: "模型", send: "发送", copy: "复制", copied: "已复制",
     },
-    footer: { license: "Agent UI CSS · MIT 开源协议", components: "组件", appica: "Appica 合集", github: "GitHub" },
+    footer: { license: "Agent UI CSS · MIT 开源协议", components: "智能体组件", appica: "界面组件", github: "GitHub" },
   },
 } as const;
 
@@ -144,6 +146,7 @@ export function App() {
   useEffect(() => {
     document.documentElement.lang = language === "zh" ? "zh-CN" : "en";
     document.documentElement.dataset.theme = theme;
+    document.documentElement.classList.toggle("dark", theme === "dark");
     try {
       window.localStorage.setItem(LANGUAGE_KEY, language);
       window.localStorage.setItem(THEME_KEY, theme);
@@ -159,16 +162,16 @@ export function App() {
     <header className="site-header">
       <a className="wordmark" href="#top" aria-label="Agent UI CSS home"><img className="wordmark__logo" src="/favicon.svg" alt="" /><strong>Agent UI</strong><span>CSS</span><small>v0.1</small></a>
       <div className="header-right">
-        <nav aria-label={t.nav.label}><a href="#components">{t.nav.components}</a><a href="/appica.html">{t.nav.appica}</a><a href="https://github.com/zhaoxinyi02/agent-ui-css">{t.nav.docs}</a><a className="nav-primary" href="https://github.com/zhaoxinyi02/agent-ui-css">{t.nav.github}</a></nav>
+        <nav aria-label={t.nav.label}><a href="#components">{t.nav.components}</a><a href="#library">{t.nav.appica}</a><a href="https://github.com/zhaoxinyi02/agent-ui-css">{t.nav.docs}</a><Button render={<a className="nav-primary" href="https://github.com/zhaoxinyi02/agent-ui-css" />} nativeButton={false} size="sm">{t.nav.github}</Button></nav>
         <div className="display-controls" aria-label={language === "zh" ? "显示设置" : "Display settings"}>
-          <button type="button" onClick={() => setLanguage(language === "en" ? "zh" : "en")} aria-label={t.controls.language}>{t.controls.languageShort}</button>
-          <button type="button" onClick={() => setTheme(theme === "light" ? "dark" : "light")} aria-label={theme === "light" ? t.controls.themeDark : t.controls.themeLight}>{theme === "light" ? t.controls.dark : t.controls.light}</button>
+          <Button variant="ghost" size="sm" onClick={() => setLanguage(language === "en" ? "zh" : "en")} aria-label={t.controls.language}>{t.controls.languageShort}</Button>
+          <Button variant="ghost" size="sm" onClick={() => setTheme(theme === "light" ? "dark" : "light")} aria-label={theme === "light" ? t.controls.themeDark : t.controls.themeLight}>{theme === "light" ? t.controls.dark : t.controls.light}</Button>
         </div>
       </div>
     </header>
 
     <section className="showcase-hero" aria-labelledby="showcase-title">
-      <div className="showcase-copy"><span className="showcase-kicker">{t.hero.kicker}</span><h1 id="showcase-title">{t.hero.title} <em>{t.hero.emphasis}</em></h1><p>{t.hero.description}</p><div className="showcase-actions"><a className="showcase-primary" href="#components">{t.hero.browse}</a><a href="https://github.com/zhaoxinyi02/agent-ui-css">{t.hero.docs}</a></div><dl className="showcase-stats"><div><dt>{t.hero.components}</dt><dd>14</dd></div><div><dt>{t.hero.dependencies}</dt><dd>0</dd></div><div><dt>{t.hero.license}</dt><dd>MIT</dd></div></dl></div>
+      <div className="showcase-copy"><Badge variant="secondary" className="showcase-kicker">{t.hero.kicker}</Badge><h1 id="showcase-title">{t.hero.title} <em>{t.hero.emphasis}</em></h1><p>{t.hero.description}</p><div className="showcase-actions"><Button render={<a className="showcase-primary" href="#components" />} nativeButton={false}>{t.hero.browse}</Button><Button variant="outline" render={<a href="https://github.com/zhaoxinyi02/agent-ui-css" />} nativeButton={false}>{t.hero.docs}</Button></div><dl className="showcase-stats"><div><dt>{t.hero.components}</dt><dd>78</dd></div><div><dt>{t.hero.dependencies}</dt><dd>2</dd></div><div><dt>{t.hero.license}</dt><dd>MIT</dd></div></dl></div>
       <div className="showcase-preview" aria-label={t.hero.preview}><div className="showcase-preview__bar"><span>{t.hero.preview}</span><Orbs variant="typing" tone="violet" label={t.hero.active} /></div><div className="showcase-preview__body"><ThinkingReasoning seconds={6} thinkingLabel={t.content.thinkingOpen} thoughtLabel={t.content.thought}><p>{t.hero.reasoning}</p></ThinkingReasoning><TaskList title={t.hero.taskTitle} items={[{ id: "hero-1", label: t.hero.task1, status: "done" }, { id: "hero-2", label: t.hero.task2, status: "active" }, { id: "hero-3", label: t.hero.task3, status: "pending" }]} /><AgentInput placeholder={t.hero.placeholder} models={["Balanced", "Fast", "Deep"]} enhanceLabel={t.content.enhance} enhancingLabel={t.content.enhancing} attachLabel={t.content.attach} modelLabel={t.content.model} sendLabel={t.content.send} /></div></div>
     </section>
 
@@ -198,6 +201,7 @@ export function App() {
         <GalleryCard title={t.cards.input} category={category(t.sections.interactive)}><AgentInput placeholder={t.content.placeholder} models={["Swift", "Balanced", "Deep"]} enhanceLabel={t.content.enhance} enhancingLabel={t.content.enhancing} attachLabel={t.content.attach} modelLabel={t.content.model} sendLabel={t.content.send} /></GalleryCard>
       </GallerySection>
     </div>
-    <footer className="site-footer"><span>{t.footer.license}</span><nav><a href="#thinking">{t.footer.components}</a><a href="/appica.html">{t.footer.appica}</a><a href="https://github.com/zhaoxinyi02/agent-ui-css">{t.footer.github}</a></nav></footer>
+    <AppicaGallery language={language} />
+    <footer className="site-footer"><span>{t.footer.license}</span><nav><a href="#thinking">{t.footer.components}</a><a href="#library">{t.footer.appica}</a><a href="https://github.com/zhaoxinyi02/agent-ui-css">{t.footer.github}</a></nav></footer>
   </main>;
 }

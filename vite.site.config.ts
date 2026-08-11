@@ -10,10 +10,7 @@ export default defineConfig({
     outDir: "site-dist",
     emptyOutDir: true,
     rollupOptions: {
-      input: {
-        main: resolve(__dirname, "index.html"),
-        appica: resolve(__dirname, "appica.html"),
-      },
+      input: resolve(__dirname, "index.html"),
     },
   },
 });

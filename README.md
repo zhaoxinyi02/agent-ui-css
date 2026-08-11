@@ -25,7 +25,7 @@ Agent UI CSS 提供一组原创、轻量、可组合的 React 组件，用于构
 - 内置完整的 64 组件 Appica UI React MIT 源码合集
 - 13 个原创 SVG 图标
 - TypeScript 类型完整
-- 除 React 外无运行时 UI 依赖
+- 14 个核心智能体组件除 React 外无运行时 UI 依赖
 - 使用原生 CSS 与 `aui-` 类名前缀，方便覆盖和组合
 - 内置可访问性语义与减少动画支持
 - 支持文本属性本地化与自动深色主题
@@ -78,7 +78,25 @@ export function AgentPanel() {
 
 完整交互与全部状态请查看[在线演示](https://au.lansuan.cc/)。所有组件和相关 TypeScript 类型均从包根路径导出。
 
-此外，仓库还完整保留了 [`vendor/appica-ui-react`](./vendor/appica-ui-react) 中的 64 个 Appica UI React 组件源码，并提供[独立在线目录](https://au.lansuan.cc/appica.html)。这部分代码遵循上游 MIT 许可证，详情见[第三方声明](./THIRD_PARTY_NOTICES.md)。
+此外，仓库还完整保留了 [`vendor/appica-ui-react`](./vendor/appica-ui-react) 中的 64 个 Appica UI React 组件源码，并在[主站组件目录](https://au.lansuan.cc/#library)中与 14 个智能体组件一起展示。这部分代码遵循上游 MIT 许可证，详情见[第三方声明](./THIRD_PARTY_NOTICES.md)。
+
+通用界面组件拥有正式的子路径导出，可直接使用：
+
+```tsx
+import { Button, Dialog, DialogContent, DialogTrigger } from "agent-ui-css/appica";
+import "agent-ui-css/appica/styles.css";
+
+export function Example() {
+  return (
+    <Dialog>
+      <DialogTrigger render={<Button>打开弹窗</Button>} />
+      <DialogContent>这里是弹窗内容。</DialogContent>
+    </Dialog>
+  );
+}
+```
+
+Appica 组件使用 Tailwind CSS 4 样式入口；安装包时其余运行时依赖会自动安装。
 
 ## 主题定制
 
@@ -127,6 +145,7 @@ npm run dev
 ```text
 src/lib/components.tsx  组件、图标与公开类型
 src/lib/styles.css      组件样式与主题变量
+vendor/appica-ui-react  64 个通用界面组件源码
 src/App.tsx             在线演示与中英文内容
 src/demo.css            演示站布局样式
 ```

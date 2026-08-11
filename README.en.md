@@ -25,7 +25,7 @@ Agent UI CSS is an original, lightweight collection of composable React componen
 - A complete vendored source collection of 64 Appica UI React components
 - 13 original SVG icons
 - Complete TypeScript types
-- No runtime UI dependency beyond React
+- The 14 core agent components have no runtime UI dependency beyond React
 - Plain CSS with an `aui-` class prefix for easy composition
 - Accessible semantics and reduced-motion support
 - Localizable text props and automatic dark theme support
@@ -78,7 +78,25 @@ export function AgentPanel() {
 
 See every component and state in the [live demo](https://au.lansuan.cc/). Components and related TypeScript types are exported from the package root.
 
-The repository also preserves the full source for 64 Appica UI React components under [`vendor/appica-ui-react`](./vendor/appica-ui-react), with a dedicated [online catalog](https://au.lansuan.cc/appica.html). That collection remains under its upstream MIT License; see [third-party notices](./THIRD_PARTY_NOTICES.md).
+The repository also preserves the full source for 64 Appica UI React components under [`vendor/appica-ui-react`](./vendor/appica-ui-react), shown alongside the 14 agent components in the [main component catalog](https://au.lansuan.cc/#library). That collection remains under its upstream MIT License; see [third-party notices](./THIRD_PARTY_NOTICES.md).
+
+The general interface components have a supported package subpath:
+
+```tsx
+import { Button, Dialog, DialogContent, DialogTrigger } from "agent-ui-css/appica";
+import "agent-ui-css/appica/styles.css";
+
+export function Example() {
+  return (
+    <Dialog>
+      <DialogTrigger render={<Button>Open dialog</Button>} />
+      <DialogContent>Dialog content goes here.</DialogContent>
+    </Dialog>
+  );
+}
+```
+
+The Appica components use the Tailwind CSS 4 style entry; their other runtime dependencies install automatically.
 
 ## Theming
 
@@ -125,6 +143,7 @@ npm run dev
 ```text
 src/lib/components.tsx  Components, icons, and public types
 src/lib/styles.css      Component styles and theme tokens
+vendor/appica-ui-react  Source for 64 general interface components
 src/App.tsx             Bilingual component showcase
 src/demo.css            Showcase layout styles
 ```

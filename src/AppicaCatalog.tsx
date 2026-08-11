@@ -61,7 +61,8 @@ import {
   Tooltip, TooltipContent, TooltipProvider, TooltipTrigger,
 } from "../vendor/appica-ui-react/src";
 
-type Language = "en" | "zh";
+export type AppicaCatalogLanguage = "en" | "zh";
+type Language = AppicaCatalogLanguage;
 type Theme = "light" | "dark";
 type ComponentItem = { name: string; slug: string };
 type ComponentGroup = { en: string; zh: string; items: ComponentItem[] };
@@ -188,7 +189,6 @@ function Preview({ slug }: { slug: string }) {
 export function AppicaCatalog() {
   const [language, setLanguage] = useState<Language>(initialLanguage);
   const [theme, setTheme] = useState<Theme>(initialTheme);
-  const [query, setQuery] = useState("");
 
   useEffect(() => {
     document.documentElement.lang = language === "zh" ? "zh-CN" : "en";
@@ -200,31 +200,10 @@ export function AppicaCatalog() {
     } catch { /* Preferences remain session-local when storage is blocked. */ }
   }, [language, theme]);
 
-  const filtered = useMemo(() => groups.map((group) => ({
-    ...group,
-    items: group.items.filter((item) => item.name.toLowerCase().includes(query.trim().toLowerCase())),
-  })).filter((group) => group.items.length > 0), [query]);
-
   const copy = language === "zh" ? {
     back: "返回 Agent UI",
-    eyebrow: "MIT 组件合集 · React 19 · Tailwind CSS 4",
-    title: "64 个现代界面组件，全部收录。",
-    body: "完整保留 Appica UI React 源码，并为常用组件提供真实交互预览。所有条目均可直接定位到仓库源码。",
-    search: "搜索 64 个组件…",
-    source: "查看源码",
-    count: "个组件",
-    notice: "Appica UI React © Appica UI，依据 MIT License 使用与再分发。",
-    stats: ["组件", "源码文件", "运行时基础", "许可证"],
   } : {
     back: "Back to Agent UI",
-    eyebrow: "MIT collection · React 19 · Tailwind CSS 4",
-    title: "64 modern interface components, all included.",
-    body: "The full Appica UI React source is preserved, with live previews for commonly used controls and direct links to every source folder.",
-    search: "Search 64 components…",
-    source: "View source",
-    count: "components",
-    notice: "Appica UI React © Appica UI, used and redistributed under the MIT License.",
-    stats: ["Components", "Source files", "Runtime base", "License"],
   };
 
   return <main className="appica-page">
@@ -233,13 +212,43 @@ export function AppicaCatalog() {
       <div className="appica-header-actions"><a href="/">{copy.back}</a><button onClick={() => setLanguage(language === "zh" ? "en" : "zh")}>{language === "zh" ? "EN" : "中文"}</button><button onClick={() => setTheme(theme === "light" ? "dark" : "light")}>{theme === "light" ? (language === "zh" ? "深色" : "Dark") : (language === "zh" ? "浅色" : "Light")}</button></div>
     </header>
 
-    <section className="appica-hero">
-      <span className="appica-eyebrow">{copy.eyebrow}</span>
-      <h1>{copy.title}</h1>
-      <p>{copy.body}</p>
-      <dl>{[["64", copy.stats[0]], ["166", copy.stats[1]], ["Base UI", copy.stats[2]], ["MIT", copy.stats[3]]].map(([value, label]) => <div key={label}><dd>{value}</dd><dt>{label}</dt></div>)}</dl>
-    </section>
+    <AppicaGallery language={language} />
+  </main>;
+}
 
+export function AppicaGallery({ language }: { language: AppicaCatalogLanguage }) {
+  const [query, setQuery] = useState("");
+  const filtered = useMemo(() => groups.map((group) => ({
+    ...group,
+    items: group.items.filter((item) => item.name.toLowerCase().includes(query.trim().toLowerCase())),
+  })).filter((group) => group.items.length > 0), [query]);
+
+  const copy = language === "zh" ? {
+    eyebrow: "APPICA UI · MIT 组件合集",
+    title: "通用界面组件",
+    body: "从按钮、表单到弹窗、导航和数据展示，64 个组件都在这里直接运行，也是这个网站正在使用的界面基础。",
+    search: "搜索 64 个组件…",
+    source: "查看源码",
+    count: "个组件",
+    notice: "Appica UI React © Appica UI，依据 MIT License 使用与再分发。",
+    stats: ["组件", "源码文件", "运行时基础", "许可证"],
+  } : {
+    eyebrow: "APPICA UI · MIT COLLECTION",
+    title: "General interface components",
+    body: "From buttons and forms to dialogs, navigation, and data display: 64 live components that also power this website's own interface.",
+    search: "Search 64 components…",
+    source: "View source",
+    count: "components",
+    notice: "Appica UI React © Appica UI, used and redistributed under the MIT License.",
+    stats: ["Components", "Source files", "Runtime base", "License"],
+  };
+
+  return <section className="appica-library" id="library" aria-labelledby="appica-library-title">
+    <header className="appica-library-intro">
+      <span className="appica-eyebrow">{copy.eyebrow}</span>
+      <div><h2 id="appica-library-title">{copy.title}</h2><p>{copy.body}</p></div>
+      <dl>{[["64", copy.stats[0]], ["166", copy.stats[1]], ["Base UI", copy.stats[2]], ["MIT", copy.stats[3]]].map(([value, label]) => <div key={label}><dd>{value}</dd><dt>{label}</dt></div>)}</dl>
+    </header>
     <section className="appica-catalog">
       <div className="appica-search"><span aria-hidden="true">⌕</span><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder={copy.search} aria-label={copy.search} /><kbd>⌘ K</kbd></div>
       {filtered.map((group) => <section className="appica-group" key={group.en}>
@@ -251,7 +260,6 @@ export function AppicaCatalog() {
       </section>)}
       {filtered.length === 0 && <div className="appica-empty">No components found.</div>}
     </section>
-
     <footer className="appica-license"><span>{copy.notice}</span><a href="https://github.com/zhaoxinyi02/agent-ui-css/blob/main/THIRD_PARTY_NOTICES.md">Third-party notices ↗</a></footer>
-  </main>;
+  </section>;
 }

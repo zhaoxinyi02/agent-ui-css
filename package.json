@@ -25,27 +25,24 @@
       "import": "./dist/agent-ui-css.js",
       "require": "./dist/agent-ui-css.umd.cjs"
     },
-    "./styles.css": "./dist/agent-ui-css.css"
+    "./styles.css": "./dist/agent-ui-css.css",
+    "./appica": {
+      "types": "./dist/appica-types/index.d.ts",
+      "import": "./dist/appica.js"
+    },
+    "./appica/styles.css": "./dist/appica.css"
   },
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build && tsc -p tsconfig.lib.json",
+    "build": "tsc -b && vite build && tsc -p tsconfig.lib.json && npm run build:appica",
+    "build:appica": "tsc -p tsconfig.appica-build.json && vite build --config vite.appica.config.ts && cp vendor/appica-ui-react/styles.css dist/appica.css",
     "build:site": "tsc -b && vite build --config vite.site.config.ts",
     "check": "tsc -b --pretty false",
     "prepare": "npm run build",
     "preview": "vite preview"
   },
-  "peerDependencies": {
-    "react": ">=18",
-    "react-dom": ">=18"
-  },
-  "devDependencies": {
+  "dependencies": {
     "@base-ui/react": "^1.7.0",
-    "@tailwindcss/vite": "^4.3.3",
-    "@types/node": "^26.2.0",
-    "@types/react": "^19.1.9",
-    "@types/react-dom": "^19.1.7",
-    "@vitejs/plugin-react": "^4.7.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "date-fns": "^4.4.0",
@@ -59,10 +56,22 @@
     "embla-carousel-react": "^9.0.0-rc02",
     "embla-carousel-wheel-gestures": "^9.0.0-rc01",
     "motion": "^12.43.0",
-    "react": "^19.1.1",
     "react-day-picker": "^10.0.1",
+    "tailwind-merge": "^3.6.0"
+  },
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18",
+    "tailwindcss": ">=4"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.3.3",
+    "@types/node": "^26.2.0",
+    "@types/react": "^19.1.9",
+    "@types/react-dom": "^19.1.7",
+    "@vitejs/plugin-react": "^4.7.0",
+    "react": "^19.1.1",
     "react-dom": "^19.1.1",
-    "tailwind-merge": "^3.6.0",
     "tailwindcss": "^4.3.3",
     "typescript": "^5.9.2",
     "vite": "^7.1.2"

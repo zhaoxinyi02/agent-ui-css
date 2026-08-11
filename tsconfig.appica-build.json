@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "useDefineForClassFields": true,
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "jsx": "react-jsx",
+    "strict": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "declaration": true,
+    "declarationMap": true,
+    "emitDeclarationOnly": true,
+    "rootDir": "vendor/appica-ui-react/src",
+    "outDir": "dist/appica-types",
+    "types": ["react", "react-dom"]
+  },
+  "include": ["vendor/appica-ui-react/src/**/*"],
+  "exclude": ["vendor/appica-ui-react/src/**/*.test.ts", "vendor/appica-ui-react/src/**/*.test.tsx", "vendor/appica-ui-react/src/test"]
+}
