@@ -66,7 +66,17 @@ export type AppicaCatalogLanguage = "en" | "zh";
 type Language = AppicaCatalogLanguage;
 type Theme = "light" | "dark";
 type ComponentItem = { name: string; zh: string; slug: string };
-type ComponentGroup = { en: string; zh: string; items: ComponentItem[] };
+type ComponentGroup = { id: string; en: string; zh: string; items: ComponentItem[] };
+export type CatalogExtraCard = {
+  id: string;
+  title: string;
+  searchText: string;
+  meta: string;
+  preview: ReactNode;
+  prompt: string;
+  wide?: boolean;
+  tall?: boolean;
+};
 
 const componentNamesZh: Record<string, string> = {
   "Button": "按钮", "Button Group": "按钮组", "Input": "输入框", "Textarea": "多行输入框", "Checkbox": "复选框", "Checkbox Group": "复选框组",
@@ -84,21 +94,37 @@ const componentNamesZh: Record<string, string> = {
 
 const groups: ComponentGroup[] = [
   {
+    id: "inputs",
     en: "Inputs & Forms",
     zh: "输入与表单",
     items: ["Button", "Button Group", "Input", "Textarea", "Checkbox", "Checkbox Group", "Radio", "Radio Group", "Switch", "Select", "Combobox", "Autocomplete", "Date Field", "Date Picker", "Time Field", "Number Field", "OTP Field", "Slider", "Toggle", "Toggle Group", "Field", "Fieldset", "Form"].map(toItem),
   },
   {
+    id: "agent",
+    en: "AI & Agent Interfaces",
+    zh: "AI 与智能体界面",
+    items: [],
+  },
+  {
+    id: "navigation",
     en: "Navigation & Overlays",
     zh: "导航与浮层",
     items: ["Accordion", "Breadcrumb", "Collapsible", "Context Menu", "Dialog", "Alert Dialog", "Drawer", "Dropdown Menu", "Menubar", "Navigation", "Navigation Menu", "Pagination", "Popover", "Preview Card", "Tabs", "Toolbar", "Tooltip"].map(toItem),
   },
   {
+    id: "data",
     en: "Data & Feedback",
     zh: "数据与反馈",
     items: ["Alert", "Avatar", "Badge", "Calendar", "Carousel", "Chip", "Copy Button", "Countdown", "Loader", "Meter", "Progress", "Scroll Area", "Skeleton", "Sparkline", "Spinner", "Table", "Toast", "Thumbnail"].map(toItem),
   },
   {
+    id: "content",
+    en: "Content & Code",
+    zh: "内容与代码",
+    items: [],
+  },
+  {
+    id: "visual",
     en: "Visual Utilities",
     zh: "视觉与工具",
     items: ["Background Pattern", "Gradient Glow", "Kbd", "Separator", "Text Animate", "Toc"].map(toItem),
@@ -107,6 +133,34 @@ const groups: ComponentGroup[] = [
 
 function toItem(name: string): ComponentItem {
   return { name, zh: componentNamesZh[name] ?? name, slug: name.toLowerCase().replaceAll(" ", "-") };
+}
+
+const REPOSITORY_URL = "https://github.com/zhaoxinyi02/agent-ui-css";
+
+function appicaPrompt(item: ComponentItem, language: AppicaCatalogLanguage) {
+  const exportName = item.name.replaceAll(" ", "");
+  if (language === "zh") return `请在当前软件或网站项目中直接复用 Agent UI CSS 的「${item.zh}」组件，不要重新制作相似组件。
+
+仓库：${REPOSITORY_URL}
+组件标识：${item.slug}
+
+执行要求：
+1. 先阅读仓库 README.md 与 THIRD_PARTY_NOTICES.md，确认许可证和现有 API；
+2. 如项目尚未安装，执行：npm install github:zhaoxinyi02/agent-ui-css#main；
+3. 从 agent-ui-css/appica 导入 ${exportName}，并引入 agent-ui-css/appica/styles.css；
+4. 根据当前项目框架完成集成，复用仓库现有实现，保留无障碍语义、响应式布局、深浅主题和键盘交互；
+5. 最后运行类型检查和构建，并说明修改了哪些文件。`;
+  return `Reuse the “${item.name}” component from Agent UI CSS in the current software or website project. Do not recreate a similar component.
+
+Repository: ${REPOSITORY_URL}
+Component slug: ${item.slug}
+
+Requirements:
+1. Read README.md and THIRD_PARTY_NOTICES.md first to confirm the license and API;
+2. If needed, run: npm install github:zhaoxinyi02/agent-ui-css#main;
+3. Import ${exportName} from agent-ui-css/appica and import agent-ui-css/appica/styles.css;
+4. Integrate the existing implementation while preserving accessibility, responsive layout, light/dark themes, and keyboard behavior;
+5. Run type checking and a production build, then report the changed files.`;
 }
 
 function readPreference(key: string) {
@@ -233,50 +287,48 @@ export function AppicaCatalog() {
   </main>;
 }
 
-export function AppicaGallery({ language }: { language: AppicaCatalogLanguage }) {
+export function AppicaGallery({ language, extraGroups = {} }: { language: AppicaCatalogLanguage; extraGroups?: Partial<Record<string, CatalogExtraCard[]>> }) {
   const [query, setQuery] = useState("");
-  const filtered = useMemo(() => groups.map((group) => ({
-    ...group,
-    items: group.items.filter((item) => `${item.name} ${item.zh}`.toLowerCase().includes(query.trim().toLowerCase())),
-  })).filter((group) => group.items.length > 0), [query]);
+  const filtered = useMemo(() => groups.map((group) => {
+    const normalizedQuery = query.trim().toLowerCase();
+    return {
+      ...group,
+      items: group.items.filter((item) => `${item.name} ${item.zh}`.toLowerCase().includes(normalizedQuery)),
+      extras: (extraGroups[group.id] ?? []).filter((item) => `${item.title} ${item.searchText}`.toLowerCase().includes(normalizedQuery)),
+    };
+  }).filter((group) => group.items.length > 0 || group.extras.length > 0), [extraGroups, query]);
 
   const copy = language === "zh" ? {
-    eyebrow: "APPICA UI · MIT 组件合集",
-    title: "通用界面组件",
-    body: "从按钮、表单到弹窗、导航和数据展示，64 个组件都在这里直接运行，也是这个网站正在使用的界面基础。",
-    search: "搜索 64 个组件…",
-    source: "查看源码",
+    search: "搜索 78 个组件…",
+    prompt: "复制提示词",
+    copied: "已复制",
     count: "个组件",
     empty: "没有找到匹配的组件。",
     notice: "Appica UI React © Appica UI，依据 MIT License 使用与再分发。",
     notices: "第三方声明",
-    stats: ["组件", "源码文件", "运行时基础", "许可证"],
   } : {
-    eyebrow: "APPICA UI · MIT COLLECTION",
-    title: "General interface components",
-    body: "From buttons and forms to dialogs, navigation, and data display: 64 live components that also power this website's own interface.",
-    search: "Search 64 components…",
-    source: "View source",
+    search: "Search 78 components…",
+    prompt: "Copy prompt",
+    copied: "Copied",
     count: "components",
     empty: "No matching components found.",
     notice: "Appica UI React © Appica UI, used and redistributed under the MIT License.",
     notices: "Third-party notices",
-    stats: ["Components", "Source files", "Runtime base", "License"],
   };
 
-  return <section className="appica-library" id="library" aria-labelledby="appica-library-title">
-    <header className="appica-library-intro">
-      <span className="appica-eyebrow">{copy.eyebrow}</span>
-      <div><h2 id="appica-library-title">{copy.title}</h2><p>{copy.body}</p></div>
-      <dl>{[["64", copy.stats[0]], ["166", copy.stats[1]], ["Base UI", copy.stats[2]], ["MIT", copy.stats[3]]].map(([value, label]) => <div key={label}><dd>{value}</dd><dt>{label}</dt></div>)}</dl>
-    </header>
+  return <section className="appica-library appica-library--unified" id="components" aria-label={language === "zh" ? "全部组件" : "All components"}>
+    <span className="appica-anchor-alias" id="library" aria-hidden="true" />
     <section className="appica-catalog">
       <div className="appica-search"><span aria-hidden="true">⌕</span><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder={copy.search} aria-label={copy.search} /><kbd>⌘ K</kbd></div>
-      {filtered.map((group) => <section className="appica-group" key={group.en}>
-        <header><h2>{language === "zh" ? group.zh : group.en}</h2><span>{group.items.length} {copy.count}</span></header>
+      {filtered.map((group) => <section className="appica-group" id={`category-${group.id}`} key={group.id}>
+        <header><h2>{language === "zh" ? group.zh : group.en}</h2><span>{group.items.length + group.extras.length} {copy.count}</span></header>
         <div className="appica-grid">{group.items.map((item) => <article className="appica-card" key={item.slug}>
           <div className="appica-card-preview"><Preview slug={item.slug} language={language} /></div>
-          <footer><div><strong>{language === "zh" ? item.zh : item.name}</strong><small>{language === "zh" ? group.zh : item.slug}</small></div><a href={`https://github.com/zhaoxinyi02/agent-ui-css/tree/main/vendor/appica-ui-react/src/components/${item.slug}`}>{copy.source} ↗</a></footer>
+          <footer><div><strong>{language === "zh" ? item.zh : item.name}</strong><small>{language === "zh" ? group.zh : item.slug}</small></div><CopyButton className="appica-prompt-copy" variant="ghost" size="sm" value={appicaPrompt(item, language)} label={copy.prompt} copiedLabel={copy.copied}>{copy.prompt}</CopyButton></footer>
+        </article>)}
+        {group.extras.map((item) => <article className={`appica-card appica-card--agent${item.wide ? " appica-card--wide" : ""}${item.tall ? " appica-card--tall" : ""}`} key={item.id}>
+          <div className="appica-card-preview appica-card-preview--agent">{item.preview}</div>
+          <footer><div><strong>{item.title}</strong><small>{item.meta}</small></div><CopyButton className="appica-prompt-copy" variant="ghost" size="sm" value={item.prompt} label={copy.prompt} copiedLabel={copy.copied}>{copy.prompt}</CopyButton></footer>
         </article>)}</div>
       </section>)}
       {filtered.length === 0 && <div className="appica-empty">{copy.empty}</div>}
