@@ -59,7 +59,7 @@ const messages = {
       browse: "Browse components", docs: "Read the docs", preview: "Live agent preview", active: "Agent is active",
       reasoning: "I’ll review the request, verify the constraints, and turn the result into a reusable component.",
       taskTitle: "Building interface", task1: "Understand the request", task2: "Refine the interaction", task3: "Return the result",
-      placeholder: "Ask the agent to change something…", components: "Components", dependencies: "UI dependencies", license: "License",
+      placeholder: "Ask the agent to change something…", components: "Components", dependencies: "Collections", license: "License",
     },
     sections: { thinking: "Thinking & Reasoning", tools: "Tool & Action States", text: "Text Outputs", structured: "Structured Outputs", interactive: "Rich & Interactive", count: "components" },
     cards: {
@@ -89,7 +89,7 @@ const messages = {
       browse: "浏览组件", docs: "阅读文档", preview: "智能体实时预览", active: "智能体运行中",
       reasoning: "我会理解需求、核对约束，并把结果整理成可以直接复用的组件。",
       taskTitle: "正在构建界面", task1: "理解需求", task2: "优化交互", task3: "返回结果",
-      placeholder: "告诉智能体你想修改什么…", components: "组件数量", dependencies: "UI 依赖", license: "开源协议",
+      placeholder: "告诉智能体你想修改什么…", components: "组件数量", dependencies: "组件合集", license: "开源协议",
     },
     sections: { thinking: "思考与推理", tools: "工具与操作状态", text: "文本输出", structured: "结构化输出", interactive: "丰富交互", count: "个组件" },
     cards: {
