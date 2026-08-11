@@ -42,11 +42,19 @@ button, input { font: inherit; }
 .appica-card footer a { flex: none; color: #6b74dc; font-size: 10px; font-weight: 650; text-decoration: none; }
 .appica-preview-row { display: flex; align-items: center; justify-content: center; gap: 10px; }
 .appica-control-line { display: flex; align-items: center; justify-content: center; gap: 10px; color: #626875; font-size: 12px; }
+.appica-pattern-demo, .appica-glow-demo { display: grid; min-height: 116px; place-content: center; gap: 5px; border-radius: 16px; text-align: center; }
+.appica-pattern-demo span, .appica-glow-demo small, .appica-compact-copy { margin: 0; color: #9298a4; font-size: 11px; }
+.appica-calendar-demo { display: flex; height: 132px; align-items: center; justify-content: center; overflow: hidden; }
+.appica-calendar-demo > * { flex: none; transform: scale(.55); }
+.appica-carousel-demo { max-width: 240px; }
+.appica-carousel-demo [role="group"][aria-roledescription="slide"] { display: grid; min-height: 92px; place-items: center; border-radius: 12px; color: #737be2; background: #737be212; font-size: 22px; font-weight: 700; }
+.appica-context-target { display: grid; min-height: 92px; place-items: center; border: 1px dashed #cfd4dd; border-radius: 12px; color: #747b88; font-size: 12px; }
+.appica-form-demo { display: grid; gap: 12px; }
+.appica-form-demo button { justify-self: start; }
+.appica-scroll-demo { height: 128px; padding-right: 12px; color: #707784; font-size: 11px; }
+.appica-scroll-demo p { margin: 0 0 10px; }
 .appica-separator-demo { display: grid; gap: 10px; color: #9298a4; font-size: 11px; }
 .appica-skeleton-demo { display: flex; align-items: center; justify-content: center; gap: 12px; }
-.appica-source-preview { display: grid; place-items: center; gap: 8px; }
-.appica-source-preview span { display: grid; width: 56px; height: 56px; place-items: center; border: 1px solid #dde1e8; border-radius: 17px; color: #6d75df; background: #f3f4ff; font-size: 15px; font-weight: 750; letter-spacing: -.02em; }
-.appica-source-preview small { color: #9aa0aa; font-size: 9px; text-transform: uppercase; letter-spacing: .08em; }
 .appica-empty { padding: 100px 0; color: #9298a4; text-align: center; }
 .appica-license { display: flex; min-height: 70px; align-items: center; justify-content: space-between; gap: 20px; padding: 0 max(24px, calc((100vw - 1192px) / 2)); border-top: 1px solid #e1e4ea; color: #9298a4; background: #fff; font-size: 10px; }
 .appica-license a { color: inherit; }
@@ -59,7 +67,7 @@ button, input { font: inherit; }
 .dark .appica-search kbd { border-color: #373b45; background: #20232a; }
 .dark .appica-card { border-color: #292d35; background: #15171c; box-shadow: 0 2px 4px #0007; }
 .dark .appica-card-preview { border-color: #292d35; background: linear-gradient(145deg, #17191f, #111318); }
-.dark .appica-source-preview span { color: #aab0ff; border-color: #34394b; background: #1c2034; }
+.dark .appica-context-target { border-color: #3a3f49; }
 .dark .appica-license { border-color: #292d35; background: #111318; }
 @media (max-width: 900px) { .appica-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 620px) { .appica-header { padding: 0 14px; }.appica-brand span, .appica-header-actions a { display: none; }.appica-hero { padding: 70px 18px 48px; }.appica-hero dl { grid-template-columns: repeat(2, 1fr); }.appica-hero dl div { padding: 12px 0; border-bottom: 1px solid #e1e4ea; }.appica-grid { grid-template-columns: 1fr; }.appica-catalog { padding-inline: 14px; }.appica-license { align-items: flex-start; flex-direction: column; padding-block: 20px; } }
