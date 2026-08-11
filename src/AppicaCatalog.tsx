@@ -276,7 +276,7 @@ export function AppicaGallery({ language }: { language: AppicaCatalogLanguage })
         <header><h2>{language === "zh" ? group.zh : group.en}</h2><span>{group.items.length} {copy.count}</span></header>
         <div className="appica-grid">{group.items.map((item) => <article className="appica-card" key={item.slug}>
           <div className="appica-card-preview"><Preview slug={item.slug} language={language} /></div>
-          <footer><div><strong>{language === "zh" ? item.zh : item.name}</strong><small>{item.slug}</small></div><a href={`https://github.com/zhaoxinyi02/agent-ui-css/tree/main/vendor/appica-ui-react/src/components/${item.slug}`}>{copy.source} ↗</a></footer>
+          <footer><div><strong>{language === "zh" ? item.zh : item.name}</strong><small>{language === "zh" ? group.zh : item.slug}</small></div><a href={`https://github.com/zhaoxinyi02/agent-ui-css/tree/main/vendor/appica-ui-react/src/components/${item.slug}`}>{copy.source} ↗</a></footer>
         </article>)}</div>
       </section>)}
       {filtered.length === 0 && <div className="appica-empty">{copy.empty}</div>}
