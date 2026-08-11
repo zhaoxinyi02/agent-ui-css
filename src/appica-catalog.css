@@ -52,6 +52,8 @@ button, input { font: inherit; }
 .appica-card footer a { flex: none; color: #6b74dc; font-size: 10px; font-weight: 650; text-decoration: none; }
 .appica-preview-row { display: flex; align-items: center; justify-content: center; gap: 10px; }
 .appica-control-line { display: flex; align-items: center; justify-content: center; gap: 10px; color: #626875; font-size: 12px; }
+.appica-centered-control { width: fit-content !important; max-width: 100%; margin-inline: auto; justify-content: center; }
+.appica-centered-control[data-orientation="vertical"] { align-items: flex-start; }
 .appica-pattern-demo, .appica-glow-demo { display: grid; min-height: 116px; place-content: center; gap: 5px; border-radius: 16px; text-align: center; }
 .appica-pattern-demo span, .appica-glow-demo small, .appica-compact-copy { margin: 0; color: #9298a4; font-size: 11px; }
 .appica-calendar-demo { display: flex; height: 132px; align-items: center; justify-content: center; overflow: hidden; }

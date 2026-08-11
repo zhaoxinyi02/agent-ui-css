@@ -120,8 +120,8 @@ export function DataTable<T extends Record<string, unknown>>({ columns, rows, ca
 }
 
 export type ComparisonFeature = { feature: string; values: Array<boolean | string> };
-export function ComparisonTable({ plans, features }: { plans: string[]; features: ComparisonFeature[] }) {
-  return <div className="aui-table-wrap"><table className="aui-table aui-comparison"><thead><tr><th>Feature</th>{plans.map((plan) => <th key={plan}>{plan}</th>)}</tr></thead><tbody>{features.map((row) => <tr key={row.feature}><td>{row.feature}</td>{row.values.map((value, index) => <td key={index}>{value === true ? <Icon name="check" size={16} /> : value === false ? <span className="aui-dash">—</span> : value}</td>)}</tr>)}</tbody></table></div>;
+export function ComparisonTable({ plans, features, featureLabel = "Feature" }: { plans: string[]; features: ComparisonFeature[]; featureLabel?: string }) {
+  return <div className="aui-table-wrap"><table className="aui-table aui-comparison"><thead><tr><th>{featureLabel}</th>{plans.map((plan) => <th key={plan}>{plan}</th>)}</tr></thead><tbody>{features.map((row) => <tr key={row.feature}><td>{row.feature}</td>{row.values.map((value, index) => <td key={index}>{value === true ? <Icon name="check" size={16} /> : value === false ? <span className="aui-dash">—</span> : value}</td>)}</tr>)}</tbody></table></div>;
 }
 
 export function AgentInput({ placeholder = "Ask the agent…", models = ["Fast", "Deep"], onSubmit, enhanceLabel = "Enhance", enhancingLabel = "Enhancing", attachLabel = "Attach a file", modelLabel = "Model", sendLabel = "Send" }: { placeholder?: string; models?: string[]; onSubmit?: (value: string, model: string) => void; enhanceLabel?: string; enhancingLabel?: string; attachLabel?: string; modelLabel?: string; sendLabel?: string }) {
