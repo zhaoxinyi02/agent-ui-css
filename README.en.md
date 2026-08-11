@@ -22,6 +22,7 @@ Polished React interface building blocks for AI and agent products.
 Agent UI CSS is an original, lightweight collection of composable React components for AI products that reason, use tools, stream results, cite sources, and ask users for the next input.
 
 - 14 purpose-built AI and agent interface components
+- A complete vendored source collection of 64 Appica UI React components
 - 13 original SVG icons
 - Complete TypeScript types
 - No runtime UI dependency beyond React
@@ -77,6 +78,8 @@ export function AgentPanel() {
 
 See every component and state in the [live demo](https://au.lansuan.cc/). Components and related TypeScript types are exported from the package root.
 
+The repository also preserves the full source for 64 Appica UI React components under [`vendor/appica-ui-react`](./vendor/appica-ui-react), with a dedicated [online catalog](https://au.lansuan.cc/appica.html). That collection remains under its upstream MIT License; see [third-party notices](./THIRD_PARTY_NOTICES.md).
+
 ## Theming
 
 Override CSS variables near your application root to create your own theme:
@@ -130,6 +133,7 @@ src/demo.css            Showcase layout styles
 
 - Read the [contribution guide](./CONTRIBUTING.en.md) before submitting code
 - Follow the community [Code of Conduct](./CODE_OF_CONDUCT.md)
+- Review licenses for vendored code in [third-party notices](./THIRD_PARTY_NOTICES.md)
 - See the [security policy](./SECURITY.md) for vulnerability reports
 - Follow project changes in the [changelog](./CHANGELOG.md)
 - Licensed under the [MIT License](./LICENSE)

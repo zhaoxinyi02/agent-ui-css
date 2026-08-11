@@ -47,7 +47,7 @@ function getInitialTheme(): Theme {
 
 const messages = {
   en: {
-    nav: { components: "Components", docs: "Documentation", github: "View on GitHub", label: "Primary navigation" },
+    nav: { components: "Components", appica: "64 more", docs: "Documentation", github: "View on GitHub", label: "Primary navigation" },
     controls: { language: "Switch to Chinese", languageShort: "中文", dark: "Dark", light: "Light", themeDark: "Switch to dark theme", themeLight: "Switch to light theme" },
     hero: {
       kicker: "Open source · React · TypeScript · Plain CSS",
@@ -74,10 +74,10 @@ const messages = {
       launch: "Launch checklist", build: "Build interface", verify: "Verify accessibility", publish: "Publish release", table: "Model routing overview", feature: "Feature", sessions: "Agent sessions", memory: "Shared memory", team: "Team controls",
       placeholder: "Ask the agent…", enhance: "Enhance", enhancing: "Enhancing", attach: "Attach a file", model: "Model", send: "Send", copy: "Copy", copied: "Copied",
     },
-    footer: { license: "Agent UI CSS · MIT License", components: "Components", github: "GitHub" },
+    footer: { license: "Agent UI CSS · MIT License", components: "Components", appica: "Appica collection", github: "GitHub" },
   },
   zh: {
-    nav: { components: "组件", docs: "使用文档", github: "查看 GitHub", label: "主导航" },
+    nav: { components: "组件", appica: "更多 64 个", docs: "使用文档", github: "查看 GitHub", label: "主导航" },
     controls: { language: "切换到英文", languageShort: "EN", dark: "深色", light: "浅色", themeDark: "切换到深色主题", themeLight: "切换到浅色主题" },
     hero: {
       kicker: "开源 · React · TypeScript · 原生 CSS",
@@ -104,7 +104,7 @@ const messages = {
       launch: "发布检查清单", build: "构建界面", verify: "验证无障碍", publish: "发布版本", table: "模型路由概览", feature: "功能", sessions: "智能体会话", memory: "共享记忆", team: "团队控制",
       placeholder: "向智能体提问…", enhance: "优化提示词", enhancing: "正在优化", attach: "添加附件", model: "模型", send: "发送", copy: "复制", copied: "已复制",
     },
-    footer: { license: "Agent UI CSS · MIT 开源协议", components: "组件", github: "GitHub" },
+    footer: { license: "Agent UI CSS · MIT 开源协议", components: "组件", appica: "Appica 合集", github: "GitHub" },
   },
 } as const;
 
@@ -159,7 +159,7 @@ export function App() {
     <header className="site-header">
       <a className="wordmark" href="#top" aria-label="Agent UI CSS home"><img className="wordmark__logo" src="/favicon.svg" alt="" /><strong>Agent UI</strong><span>CSS</span><small>v0.1</small></a>
       <div className="header-right">
-        <nav aria-label={t.nav.label}><a href="#components">{t.nav.components}</a><a href="https://github.com/zhaoxinyi02/agent-ui-css">{t.nav.docs}</a><a className="nav-primary" href="https://github.com/zhaoxinyi02/agent-ui-css">{t.nav.github}</a></nav>
+        <nav aria-label={t.nav.label}><a href="#components">{t.nav.components}</a><a href="/appica.html">{t.nav.appica}</a><a href="https://github.com/zhaoxinyi02/agent-ui-css">{t.nav.docs}</a><a className="nav-primary" href="https://github.com/zhaoxinyi02/agent-ui-css">{t.nav.github}</a></nav>
         <div className="display-controls" aria-label={language === "zh" ? "显示设置" : "Display settings"}>
           <button type="button" onClick={() => setLanguage(language === "en" ? "zh" : "en")} aria-label={t.controls.language}>{t.controls.languageShort}</button>
           <button type="button" onClick={() => setTheme(theme === "light" ? "dark" : "light")} aria-label={theme === "light" ? t.controls.themeDark : t.controls.themeLight}>{theme === "light" ? t.controls.dark : t.controls.light}</button>
@@ -198,6 +198,6 @@ export function App() {
         <GalleryCard title={t.cards.input} category={category(t.sections.interactive)}><AgentInput placeholder={t.content.placeholder} models={["Swift", "Balanced", "Deep"]} enhanceLabel={t.content.enhance} enhancingLabel={t.content.enhancing} attachLabel={t.content.attach} modelLabel={t.content.model} sendLabel={t.content.send} /></GalleryCard>
       </GallerySection>
     </div>
-    <footer className="site-footer"><span>{t.footer.license}</span><nav><a href="#thinking">{t.footer.components}</a><a href="https://github.com/zhaoxinyi02/agent-ui-css">{t.footer.github}</a></nav></footer>
+    <footer className="site-footer"><span>{t.footer.license}</span><nav><a href="#thinking">{t.footer.components}</a><a href="/appica.html">{t.footer.appica}</a><a href="https://github.com/zhaoxinyi02/agent-ui-css">{t.footer.github}</a></nav></footer>
   </main>;
 }

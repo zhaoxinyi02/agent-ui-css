@@ -22,6 +22,7 @@
 Agent UI CSS 提供一组原创、轻量、可组合的 React 组件，用于构建会思考、会调用工具、会流式输出并能继续接收用户输入的 AI 产品界面。
 
 - 14 个面向 AI/Agent 场景的界面组件
+- 内置完整的 64 组件 Appica UI React MIT 源码合集
 - 13 个原创 SVG 图标
 - TypeScript 类型完整
 - 除 React 外无运行时 UI 依赖
@@ -76,6 +77,8 @@ export function AgentPanel() {
 | 基础能力 | `Icon` | 13 个一致风格的 SVG 图标 |
 
 完整交互与全部状态请查看[在线演示](https://au.lansuan.cc/)。所有组件和相关 TypeScript 类型均从包根路径导出。
+
+此外，仓库还完整保留了 [`vendor/appica-ui-react`](./vendor/appica-ui-react) 中的 64 个 Appica UI React 组件源码，并提供[独立在线目录](https://au.lansuan.cc/appica.html)。这部分代码遵循上游 MIT 许可证，详情见[第三方声明](./THIRD_PARTY_NOTICES.md)。
 
 ## 主题定制
 
@@ -132,6 +135,7 @@ src/demo.css            演示站布局样式
 
 - 提交代码前请阅读[贡献指南](./CONTRIBUTING.md)
 - 社区互动遵循[行为准则](./CODE_OF_CONDUCT.md)
+- 第三方代码与许可参阅[第三方声明](./THIRD_PARTY_NOTICES.md)
 - 安全问题请参阅[安全策略](./SECURITY.md)
 - 版本变化记录在 [CHANGELOG](./CHANGELOG.md)
 - 项目采用 [MIT License](./LICENSE)

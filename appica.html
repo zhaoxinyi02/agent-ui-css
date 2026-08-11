@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Agent UI CSS · Appica UI MIT component collection" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>Appica UI Collection · Agent UI CSS</title>
+    <script>
+      (() => {
+        try {
+          const savedLanguage = localStorage.getItem("agent-ui-language");
+          const savedTheme = localStorage.getItem("agent-ui-theme");
+          const language = savedLanguage === "en" || savedLanguage === "zh"
+            ? savedLanguage
+            : navigator.language.toLowerCase().startsWith("zh") ? "zh" : "en";
+          const theme = savedTheme === "light" || savedTheme === "dark"
+            ? savedTheme
+            : matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+          document.documentElement.lang = language === "zh" ? "zh-CN" : "en";
+          document.documentElement.dataset.theme = theme;
+          document.documentElement.classList.toggle("dark", theme === "dark");
+        } catch {}
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="appica-root"></div>
+    <script type="module" src="/src/appica-main.tsx"></script>
+  </body>
+</html>

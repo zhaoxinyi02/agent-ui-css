@@ -13,7 +13,9 @@
   },
   "author": "zhaoxinyi02",
   "type": "module",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "main": "./dist/agent-ui-css.umd.cjs",
   "module": "./dist/agent-ui-css.js",
   "types": "./dist/index.d.ts",
@@ -38,14 +40,42 @@
     "react-dom": ">=18"
   },
   "devDependencies": {
+    "@base-ui/react": "^1.7.0",
+    "@tailwindcss/vite": "^4.3.3",
     "@types/react": "^19.1.9",
     "@types/react-dom": "^19.1.7",
     "@vitejs/plugin-react": "^4.7.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "date-fns": "^4.4.0",
+    "embla-carousel": "^9.0.0-rc02",
+    "embla-carousel-accessibility": "^9.0.0-rc02",
+    "embla-carousel-auto-height": "^9.0.0-rc02",
+    "embla-carousel-auto-scroll": "^9.0.0-rc02",
+    "embla-carousel-autoplay": "^9.0.0-rc02",
+    "embla-carousel-class-names": "^9.0.0-rc02",
+    "embla-carousel-fade": "^9.0.0-rc02",
+    "embla-carousel-react": "^9.0.0-rc02",
+    "embla-carousel-wheel-gestures": "^9.0.0-rc01",
+    "motion": "^12.43.0",
     "react": "^19.1.1",
+    "react-day-picker": "^10.0.1",
     "react-dom": "^19.1.1",
+    "tailwind-merge": "^3.6.0",
+    "tailwindcss": "^4.3.3",
     "typescript": "^5.9.2",
     "vite": "^7.1.2"
   },
-  "keywords": ["ai", "agent", "react", "components", "ui", "component-library", "design-system", "css", "typescript"],
+  "keywords": [
+    "ai",
+    "agent",
+    "react",
+    "components",
+    "ui",
+    "component-library",
+    "design-system",
+    "css",
+    "typescript"
+  ],
   "license": "MIT"
 }

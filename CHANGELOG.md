@@ -7,6 +7,7 @@
 ### Added
 
 - 原创 Agent UI CSS 标志与网站 favicon
+- 完整引入 Appica UI React 64 组件 MIT 源码并增加在线目录
 - 中文与英文项目文档
 - GitHub Issue、Pull Request 模板与持续集成检查
 - 正式在线演示地址与主题/语言偏好持久化
